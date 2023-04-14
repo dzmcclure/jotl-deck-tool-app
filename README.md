@@ -1,5 +1,12 @@
 # JotlDeckToolApp
+Deck tool for Jaws of the Lion. Draw, shuffle, add cards, save and load decks.
 
+Submodules:
+- jotl
+
+Dependencies:
+
+## Boilerplate
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
 
 ## Development server
