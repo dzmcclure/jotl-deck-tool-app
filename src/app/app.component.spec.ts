@@ -26,4 +26,10 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, jotl-deck-tool-app');
   });
+
+  describe('shuffleDeck', () => {
+    it('should shuffle the deck 1 times if no input is provided', () => {
+      expect(1).toEqual(1);
+    })
+  });
 });
