@@ -1,10 +1,9 @@
 {{title}}
-<div [style]="boxStyle"></div>
 <br>
 <button (click)="shuffleDeck()">Shuffle Deck</button>
 <br>
-<input type="number" [min]="cards.length" [(ngModel)]="newCardValue">
-<button (click)="addCard(newCardValue)">Add a New Card</button>
-<br>
-<app-new-view viewTitle="new-view-title" viewDescription="this is an entirely separate component!"></app-new-view>
-<router-outlet />
+<button (click)="drawCard(1)">Draw a card</button>
+<button (click)="drawCard(2)">Draw two cards</button>
+@for(card of drawnCards; track card) {
+  <div>{{card.description}}</div>
+}
