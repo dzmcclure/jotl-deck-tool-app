@@ -2,8 +2,24 @@
 <br>
 <button (click)="shuffleDeck()">Shuffle Deck</button>
 <br>
-<button (click)="drawCard(1)">Draw a card</button>
-<button (click)="drawCard(2)">Draw two cards</button>
-@for(card of drawnCards; track card.id) {
+<button (click)="drawMonsterCard(1)">Draw a card</button>
+<button (click)="drawMonsterCard(2)">Draw two cards</button>
+
+<button (click)="addBlessToMonsterModifierDeck()"
+        title="Adds a Bless card to the Monster Modifier deck">
+  Bless Monster
+</button>
+<button (click)="addBlessToPlayerModifierDeck()"
+        title="Removes a card from the Bless deck">
+  Bless Player
+</button>
+<button (click)="drawPlayerCard()"
+        title="Returns a used Bless card to the Bless deck">
+  Return Bless Card
+</button>
+
+<button (click)="addCurseToMonsterModifierDeck()">Add a Curse Card</button>
+
+@for(card of monsterDrawnCards; track card.id) {
   <div>{{card.description}}</div>
 }

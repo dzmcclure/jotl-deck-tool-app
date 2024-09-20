@@ -12,7 +12,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - Card details
 - Drawing cards
 - Shuffle deck (normal shuffle)
-
+- Shuffle deck (Bless/Curse)
 
 ## Future Goals
 
@@ -33,12 +33,6 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
   
 ### Monster modifier deck
 
-3 - Shuffle deck (Bless/Curse)
-  - Button for more different shuffle
-  - Add 1 Bless or Curse
-  - Selection pops up when button clicked
-  - Deck with additional cards is shuffled
-  - Drawn cards are NOT returned
-
 4 - Remove ALL Bless/Curse cards
   - Restore deck to "Base Monster Deck"
+  - Restore Bless and Curse decks to base
