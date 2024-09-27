@@ -4,9 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterOutlet} from '@angular/router';
 import {NewViewComponent} from './new-view/new-view.component';
 import {Card} from './models/card';
-import {BaseMonsterCurseDeck} from "./constants/decks/monster-curse-base";
-import {BaseMonsterModifierDeck} from './constants/decks/monster-modifiers-base';
-import {BasePlayerBlessDeck} from "./constants/decks/player-bless-base";
+import {BaseMonsterCurseDeck, BaseMonsterModifierDeck, BasePlayerBlessDeck} from './constants/decks';
 import _ from 'lodash';
 
 @Component({
@@ -44,7 +42,7 @@ export class AppComponent {
     // TODO - implement player curse deck
     this.playerCurseDeck = _.clone(BaseMonsterCurseDeck);
 
-    this.shuffleDeck();
+    this.resetMonsterDeck();
   }
 
   public addBlessToMonsterModifierDeck(): void {
@@ -89,10 +87,21 @@ export class AppComponent {
     owner === 'monster' ? this.monsterCurseDeck.push(card) : this.playerCurseDeck.push(card);
   }
 
-  public shuffleDeck(): void {
+  public resetMonsterDeck(): void {
     this.monsterDrawnCards = [];
-    this.monsterDiscardPile = [];
     this.monsterDrawPile = _.clone(BaseMonsterModifierDeck);
+    this.shuffleMonsterDeck();
+  }
+
+  public returnMonsterDiscardsToDeck(): void {
+    this.monsterDiscardPile.forEach((card: Card) => {
+      this.monsterDrawPile.push(card);
+    });
+    this.shuffleMonsterDeck()
+  }
+
+  public shuffleMonsterDeck(): void {
+    this.monsterDiscardPile = [];
 
     this.shuffle();
     console.log(this.monsterDrawPile);
@@ -145,6 +154,7 @@ export class AppComponent {
       }
     }
   }
+
   /*
   TODO - Abstracted Draw Method
   public drawCard(deckOwner: string = 'monster', numberDrawn: number = 1): void {

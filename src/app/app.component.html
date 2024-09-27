@@ -1,6 +1,10 @@
 {{title}}
 <br>
-<button (click)="shuffleDeck()">Shuffle Deck</button>
+<button (click)="returnMonsterDiscardsToDeck()">Shuffle Monster Deck</button>
+<button (click)="resetMonsterDeck()"
+        title="Reset monster deck to base and then shuffle">
+  Reset & Shuffle
+</button>
 <br>
 <button (click)="drawMonsterCard(1)">Draw a card</button>
 <button (click)="drawMonsterCard(2)">Draw two cards</button>

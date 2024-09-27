@@ -3,4 +3,6 @@ export interface Card {
   description: string;
   image: string;
   // value?: number | string;
+  // reshuffle: boolean;
+  // drawAgain: boolean;
 }
