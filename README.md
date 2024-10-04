@@ -19,7 +19,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ### Pairing/Application Structure
 
-- [ ] Come up with separation of responsibilities
+- [x] Come up with separation of responsibilities
   - Decks
   - Cards
   - App UI
@@ -27,22 +27,25 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 App Component
 - Load a deck
-- Player/Monster deck sections
+- Player
   - Display decks (child component)
+  - 'level up' decks by changing cards and saving new deck
+- Monster deck sections
+  - Display decks (child component)
+  - has separate curses
 - Drawn card display (child component)
 - Other high-level app info
-  - version? idk
-- Load/Save a session?
+  - version
+- Load/Save a session
 
-Card Component - Uses the model
+Card Component - Takes inputs from the model
 - displays a card image
-- maybe front/back logic?
 
 Card Class - Model
-- reshuffle/draw one logic
+- reshuffle/draw one flags
 
 Deck Component
-- image of deck
+- image of deck (card back)
 - count of remaining cards
 - maybe some buttons
   - draw a card

@@ -6,6 +6,7 @@ import {NewViewComponent} from './new-view/new-view.component';
 import {Card} from './models/card';
 import {BaseMonsterCurseDeck, BaseMonsterModifierDeck, BasePlayerBlessDeck} from './constants/decks';
 import _ from 'lodash';
+import { CardComponent } from "./components/card/card.component";
 
 @Component({
   selector: 'app-root',
@@ -14,14 +15,28 @@ import _ from 'lodash';
     CommonModule,
     FormsModule,
     RouterOutlet, NewViewComponent,
-  ],
+    CardComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 
 export class AppComponent {
   title: string = 'jotl-deck-app';
-
+  version: string = "v0.2";
+  // - Load a deck
+  // - Save a Deck
+  // - Player
+  //   - Display decks (child component)
+  //   - 'level up' decks by changing cards and saving new deck
+  // - Monster deck sections
+  //   - Display decks (child component)
+  //   - has separate curses
+  // - Drawn card display (child component)
+  // - Other high-level app info
+  //   - version
+  // - Load/Save a session
+  
   // Draw/Discard Piles
   monsterDrawPile: Card[] = [];
   monsterDiscardPile: Card[] = [];
