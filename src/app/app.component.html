@@ -1,4 +1,4 @@
-{{title}}
+<strong style="font-size: 20pt;">{{title}}</strong>
 <br>
 <button (click)="returnMonsterDiscardsToDeck()">Shuffle Monster Deck</button>
 <button (click)="resetMonsterDeck()"
@@ -23,7 +23,7 @@
 </button>
 
 <button (click)="addCurseToMonsterModifierDeck()">Add a Curse Card</button>
-
+<br>
 @for(card of monsterDrawnCards; track card.id) {
-  <div>{{card.description}}</div>
+  <app-card [card]="card"/>
 }
