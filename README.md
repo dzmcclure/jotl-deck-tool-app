@@ -14,7 +14,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - Shuffle deck (normal shuffle)
 - Shuffle deck (reset deck)
 - Shuffle deck (Bless/Curse)
-
+- Card Images!!!
+  
 ## Future Goals
 
 ### Pairing/Application Structure
@@ -53,8 +54,8 @@ Deck Component
 
 ### All decks
   
-2 - Connect to JOTL image repo
-  - Store image path in card property
+2 - [x] Connect to JOTL image repo
+  - [x] Store image path in card property
   
 3 - Load deck
   - Load a list of cards
