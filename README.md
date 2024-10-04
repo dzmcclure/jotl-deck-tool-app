@@ -17,6 +17,37 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Future Goals
 
+### Pairing/Application Structure
+
+- [ ] Come up with separation of responsibilities
+  - Decks
+  - Cards
+  - App UI
+  - etc.
+
+App Component
+- Load a deck
+- Player/Monster deck sections
+  - Display decks (child component)
+- Drawn card display (child component)
+- Other high-level app info
+  - version? idk
+- Load/Save a session?
+
+Card Component - Uses the model
+- displays a card image
+- maybe front/back logic?
+
+Card Class - Model
+- reshuffle/draw one logic
+
+Deck Component
+- image of deck
+- count of remaining cards
+- maybe some buttons
+  - draw a card
+
+
 ### All decks
   
 2 - Connect to JOTL image repo
