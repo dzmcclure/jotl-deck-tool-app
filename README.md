@@ -9,22 +9,25 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Completed Milestones
 
-- Card details
-- Drawing cards
-- Shuffle deck (normal shuffle)
-- Shuffle deck (reset deck)
-- Shuffle deck (Bless/Curse)
-- Card Images!!!
-  
+- [x] Card details
+- [x] Drawing cards
+- [x] Shuffle deck (normal shuffle)
+- [x] Shuffle deck (reset deck)
+- [x] Shuffle deck (Bless/Curse)
+- [x] Card Images!!!
+- [x] Deck Image
+- [x] Dynamic deck "size"
+- [x] Remaining card count
+- [x] Come up with separation of responsibilities
+- [x] Restore deck to "Base Monster Deck"
+
 ## Future Goals
 
 ### Pairing/Application Structure
-
-- [x] Come up with separation of responsibilities
-  - Decks
-  - Cards
-  - App UI
-  - etc.
+- Decks
+- Cards
+- App UI
+- etc.
 
 App Component
 - Load a deck
@@ -53,22 +56,14 @@ Deck Component
 
 
 ### All decks
-  
-2 - [x] Connect to JOTL image repo
-  - [x] Store image path in card property
-  
-3 - Load deck
-  - Load a list of cards
-    - Values
-    - Image paths
-    - Etc.
-    
-4 - Card pile counts
-  - Draw pile
-  - Discard pile
+- [ ] Load deck
+- [ ] Load a list of cards
+  - [ ] Values
+  - [ ] Image paths
+  - [ ] Etc.
+- [ ] Card pile counts
+  - [ ] Discard pile
   
 ### Monster modifier deck
-
-4 - Remove ALL Bless/Curse cards
-  - [x] Restore deck to "Base Monster Deck"
-  - Restore Bless and Curse decks to base
+- [ ] Remove ALL Bless/Curse cards
+  - [ ] Restore Bless and Curse decks to base

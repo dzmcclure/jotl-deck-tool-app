@@ -1,1 +1,34 @@
-<p>deck works!</p>
+<img class='card-deck'
+     [ngClass]="{
+       'card-deck-full': monsterDrawPile.length > 4,
+       'card-deck-slim': monsterDrawPile.length < 5}"
+     alt="Remaining Deck of Monster Modifier Cards"
+     [src]="cardBackImage"/>
+<p>Cards left: {{monsterDrawPile.length}}</p>
+<button (click)="returnMonsterDiscardsToDeck()">Shuffle Monster Deck</button>
+<button (click)="resetMonsterDeck()"
+        title="Reset monster deck to base and then shuffle">
+  Reset & Shuffle
+</button>
+<br>
+<button (click)="drawMonsterCard(1)">Draw a card</button>
+<button (click)="drawMonsterCard(2)">Draw two cards</button>
+
+<button (click)="addBlessToMonsterModifierDeck()"
+        title="Adds a Bless card to the Monster Modifier deck">
+  Bless Monster
+</button>
+<button (click)="addBlessToPlayerModifierDeck()"
+        title="Removes a card from the Bless deck">
+  Bless Player
+</button>
+<button (click)="drawPlayerCard()"
+        title="Returns a used Bless card to the Bless deck">
+  Return Bless Card
+</button>
+
+<button (click)="addCurseToMonsterModifierDeck()">Add a Curse Card</button>
+<br>
+@for(card of monsterDrawnCards; track card.id) {
+  <app-card [card]="card"/>
+}

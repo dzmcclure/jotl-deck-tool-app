@@ -1,0 +1,27 @@
+.card-deck {
+  --deck-card-color: #352417;
+  height: 150px;
+  width: auto;
+}
+
+.card-deck-slim {
+  box-shadow:
+    white 1px 1px,
+    var(--deck-card-color) 2px 2px,
+    white 3px 3px,
+    var(--deck-card-color) 4px 4px;
+}
+
+.card-deck-full {
+  box-shadow:
+    white 1px 1px,
+    var(--deck-card-color) 2px 2px,
+    white 3px 3px,
+    var(--deck-card-color) 4px 4px,
+    white 5px 5px,
+    var(--deck-card-color) 6px 6px,
+    white 7px 7px,
+    var(--deck-card-color) 8px 8px,
+    white 9px 9px,
+    var(--deck-card-color) 10px 10px;
+}
