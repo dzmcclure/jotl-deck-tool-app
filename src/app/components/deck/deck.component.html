@@ -1,11 +1,31 @@
-<img class='card-deck'
+<div class="deck-container">
+  <div class="deck-buttons-container">
+    <button (click)="returnMonsterDiscardsToDeck()">Shuffle Deck</button>
+  </div>
+  <div class="card-deck-container">
+    <img class='card-deck'
      [ngClass]="{
        'card-deck-full': monsterDrawPile.length > 4,
        'card-deck-slim': monsterDrawPile.length < 5}"
      alt="Remaining Deck of Monster Modifier Cards"
      [src]="cardBackImage"/>
-<p>Cards left: {{monsterDrawPile.length}}</p>
-<button (click)="returnMonsterDiscardsToDeck()">Shuffle Monster Deck</button>
+  </div>
+  <div class="deck-buttons-container">
+    <button class="button-icon"
+            (click)="addBlessToMonsterModifierDeck()"
+            title="Adds a Bless card to the Monster Modifier deck">
+      <img alt="bless icon" src="assets/icons/bless.png"/>
+    </button>
+    <button class="button-icon"
+            (click)="addCurseToMonsterModifierDeck()"
+            title="Adds a Curse card to the Monster Modifier deck">
+      <img alt="curse icon" src="assets/icons/curse.png"/>
+    </button>
+  </div>
+</div>
+<div class="card-deck-label">
+  <p class="card-deck-remainder">Cards left: {{monsterDrawPile.length}}</p>
+</div>
 <button (click)="resetMonsterDeck()"
         title="Reset monster deck to base and then shuffle">
   Reset & Shuffle
@@ -14,10 +34,7 @@
 <button (click)="drawMonsterCard(1)">Draw a card</button>
 <button (click)="drawMonsterCard(2)">Draw two cards</button>
 
-<button (click)="addBlessToMonsterModifierDeck()"
-        title="Adds a Bless card to the Monster Modifier deck">
-  Bless Monster
-</button>
+
 <button (click)="addBlessToPlayerModifierDeck()"
         title="Removes a card from the Bless deck">
   Bless Player
@@ -26,8 +43,6 @@
         title="Returns a used Bless card to the Bless deck">
   Return Bless Card
 </button>
-
-<button (click)="addCurseToMonsterModifierDeck()">Add a Curse Card</button>
 <br>
 @for(card of monsterDrawnCards; track card.id) {
   <app-card [card]="card"/>

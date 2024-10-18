@@ -4,7 +4,7 @@
 # jotl/
 
 # Large Files
-src/assets/
+src/assets/images
 
 # Compiled output
 /dist

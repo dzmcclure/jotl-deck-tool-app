@@ -1,7 +1,40 @@
+.deck-container {
+  display: flex;
+  max-width: 400px;
+}
+
+.card-deck-container {
+  width: 75%;
+  margin: 8px;
+}
+
+.deck-buttons-container {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  button {
+    margin: 4px 0;
+  }
+}
+
 .card-deck {
   --deck-card-color: #352417;
   height: 150px;
   width: auto;
+}
+
+.card-deck-label {
+  font-size: 16px;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+
+  .card-deck-remainder {
+    width: 60%;
+    margin: 4px 0;
+  }
 }
 
 .card-deck-slim {
@@ -24,4 +57,15 @@
     var(--deck-card-color) 8px 8px,
     white 9px 9px,
     var(--deck-card-color) 10px 10px;
+}
+
+.button-icon {
+  height: 75px;
+  width: 75px;
+  border: none;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
 }
