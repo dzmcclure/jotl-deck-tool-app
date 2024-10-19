@@ -1,6 +1,13 @@
 <div class="deck-container">
   <div class="deck-buttons-container">
-    <button (click)="returnMonsterDiscardsToDeck()">Shuffle Deck</button>
+    <button (click)="returnMonsterDiscardsToDeck()"
+            title="Shuffle deck and keep additional cards">
+      Shuffle Deck
+    </button>
+    <button (click)="resetMonsterDeck()"
+            title="Reset monster deck to base and then shuffle">
+      Reset Deck
+    </button>
   </div>
   <div class="card-deck-container">
     <img class="card-deck"
@@ -22,23 +29,22 @@
   </div>
 </div>
 <div class="card-deck-label">
-  <p class="card-deck-remainder">Cards left: {{monsterDrawPile.length}}</p>
-<div class="remaining-blurses">
-  <div>
-    <img class="image-remaining-blurses" alt="Remaining Monster Curse Cards " src="assets/icons/curse.png" />
-    <img class="image-remaining-blurses" alt="Remaining Bless Cards" src="assets/icons/bless.png" />
+  <div class="card-deck-remainder">
+    <div style="display: flex; justify-content: center; padding: 4px;">Cards left:</div>
+    <div style="display: flex; justify-content: center; padding: 4px;">{{monsterDrawPile.length}}</div>
   </div>
+  <div class="remaining-blurses">
+    <div>
+      <img class="image-remaining-blurses" alt="Remaining Monster Curse Cards " src="assets/icons/curse.png" />
+      <img class="image-remaining-blurses" alt="Remaining Bless Cards" src="assets/icons/bless.png" />
+    </div>
 
-  <div class="label-remaining-blurses-container">
-    <div class="label-remaining-blurses">{{monsterCurseDeck.length}}</div>
-    <div class="label-remaining-blurses">{{playerBlessDeck.length}}</div>
+    <div class="label-remaining-blurses-container">
+      <div class="label-remaining-blurses">{{monsterCurseDeck.length}}</div>
+      <div class="label-remaining-blurses">{{playerBlessDeck.length}}</div>
+    </div>
   </div>
 </div>
-</div>
-<button (click)="resetMonsterDeck()"
-        title="Reset monster deck to base and then shuffle">
-  Reset & Shuffle
-</button>
 <br>
 <button (click)="drawMonsterCard(1)">Draw a card</button>
 <button (click)="drawMonsterCard(2)">Draw two cards</button>
