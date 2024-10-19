@@ -3,12 +3,10 @@
     <button (click)="returnMonsterDiscardsToDeck()">Shuffle Deck</button>
   </div>
   <div class="card-deck-container">
-    <img class='card-deck'
-     [ngClass]="{
-       'card-deck-full': monsterDrawPile.length > 4,
-       'card-deck-slim': monsterDrawPile.length < 5}"
-     alt="Remaining Deck of Monster Modifier Cards"
-     [src]="cardBackImage"/>
+    <img class="card-deck"
+         [style]="deckRemainderSizeStyle"
+         alt="Remaining Deck of Monster Modifier Cards"
+         [src]="cardBackImage"/>
   </div>
   <div class="deck-buttons-container">
     <button class="button-icon"
@@ -32,8 +30,8 @@
   </div>
 
   <div class="label-remaining-blurses-container">
-    <div  class="label-remaining-blurses">{{monsterCurseDeck.length}}</div>
-    <div (playerBlessDeck)="playerBlessDeck" class="label-remaining-blurses">{{playerBlessDeck.length}}</div>
+    <div class="label-remaining-blurses">{{monsterCurseDeck.length}}</div>
+    <div class="label-remaining-blurses">{{playerBlessDeck.length}}</div>
   </div>
 </div>
 </div>

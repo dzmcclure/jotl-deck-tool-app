@@ -23,6 +23,7 @@
   --deck-card-color: #352417;
   height: 150px;
   width: auto;
+  border-radius: 5px;
 }
 
 .card-deck-label {
@@ -35,28 +36,6 @@
     max-width: 60%;
     margin: 4px 0;
   }
-}
-
-.card-deck-slim {
-  box-shadow:
-    white 1px 1px,
-    var(--deck-card-color) 2px 2px,
-    white 3px 3px,
-    var(--deck-card-color) 4px 4px;
-}
-
-.card-deck-full {
-  box-shadow:
-    white 1px 1px,
-    var(--deck-card-color) 2px 2px,
-    white 3px 3px,
-    var(--deck-card-color) 4px 4px,
-    white 5px 5px,
-    var(--deck-card-color) 6px 6px,
-    white 7px 7px,
-    var(--deck-card-color) 8px 8px,
-    white 9px 9px,
-    var(--deck-card-color) 10px 10px;
 }
 
 .button-icon {
@@ -79,7 +58,7 @@
 .image-remaining-blurses{
   width: 50px;
   border-radius: 5px;
-  margin: 0px 5px ;
+  margin: 0 5px ;
 }
 
 .label-remaining-blurses-container{

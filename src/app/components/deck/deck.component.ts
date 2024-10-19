@@ -19,8 +19,8 @@ import {NgClass, NgOptimizedImage} from "@angular/common";
 })
 
 export class DeckComponent {
-
   cardBackImage: string = ModifierCardBack.image;
+  deckRemainderSizeStyle = '';
   // - count of remaining cards
   // - shuffle
   // - draw a card
@@ -56,6 +56,7 @@ export class DeckComponent {
     this.playerCurseDeck = _.clone(BaseMonsterCurseDeck);
 
     this.resetMonsterDeck();
+    this.calculateDeckShadow();
   }
 
   public addBlessToMonsterModifierDeck(): void {
@@ -66,6 +67,7 @@ export class DeckComponent {
       console.log('No bless cards left to add!');
     }
 
+    this.calculateDeckShadow();
     this.shuffle();
     console.log(this.monsterDrawPile);
   }
@@ -78,6 +80,7 @@ export class DeckComponent {
       console.log('No curse cards left to add!');
     }
 
+    this.calculateDeckShadow();
     this.shuffle();
     console.log(this.monsterDrawPile);
   }
@@ -116,6 +119,7 @@ export class DeckComponent {
   public shuffleMonsterDeck(): void {
     this.monsterDiscardPile = [];
 
+    this.calculateDeckShadow();
     this.shuffle();
     console.log(this.monsterDrawPile);
   }
@@ -142,6 +146,8 @@ export class DeckComponent {
         console.log('No cards left to draw!!!');
       }
     }
+
+    this.calculateDeckShadow();
   }
 
   public drawPlayerCard(numberDrawn: number = 1): void {
@@ -212,6 +218,19 @@ export class DeckComponent {
   //   this.cards.push(newCard);
   //   console.log(this.cards);
   // }
+
+  private calculateDeckShadow(): void {
+    this.deckRemainderSizeStyle = 'box-shadow: ';
+    let pixelOffset = 1;
+
+    for(let i = 0; i < this.monsterDrawPile.length / 4; i++) {
+      this.deckRemainderSizeStyle += `white ${pixelOffset}px ${pixelOffset}px,`;
+      this.deckRemainderSizeStyle += `var(--deck-card-color) ${pixelOffset+1}px ${pixelOffset+1}px,`;
+      pixelOffset += 2;
+    }
+
+    this.deckRemainderSizeStyle = this.deckRemainderSizeStyle.substring(0, this.deckRemainderSizeStyle.length - 1) + ';';
+  }
 
   // Stolen from the internet ty internet
   private shuffle(): void {
