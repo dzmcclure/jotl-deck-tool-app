@@ -25,6 +25,17 @@
 </div>
 <div class="card-deck-label">
   <p class="card-deck-remainder">Cards left: {{monsterDrawPile.length}}</p>
+<div class="remaining-blurses">
+  <div>
+    <img class="image-remaining-blurses" alt="Remaining Monster Curse Cards " src="assets/icons/curse.png" />
+    <img class="image-remaining-blurses" alt="Remaining Bless Cards" src="assets/icons/bless.png" />
+  </div>
+
+  <div class="label-remaining-blurses-container">
+    <div  class="label-remaining-blurses">{{monsterCurseDeck.length}}</div>
+    <div (playerBlessDeck)="playerBlessDeck" class="label-remaining-blurses">{{playerBlessDeck.length}}</div>
+  </div>
+</div>
 </div>
 <button (click)="resetMonsterDeck()"
         title="Reset monster deck to base and then shuffle">

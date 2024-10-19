@@ -32,7 +32,7 @@
   justify-content: center;
 
   .card-deck-remainder {
-    width: 60%;
+    max-width: 60%;
     margin: 4px 0;
   }
 }
@@ -68,4 +68,35 @@
     height: 100%;
     width: 100%;
   }
+}
+
+.remaining-blurses{
+  width: 120px;
+  height: 42px;
+  margin: 4px 0;
+}
+
+.image-remaining-blurses{
+  width: 50px;
+  border-radius: 5px;
+  margin: 0px 5px ;
+}
+
+.label-remaining-blurses-container{
+  height: 50px;
+  top: -53px;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.label-remaining-blurses{
+  width: 50%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 24pt;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
