@@ -95,10 +95,12 @@ export const BaseMonsterModifierDeck: Card[] = [
     id: 'jl-am-m-19',
     description: 'Miss - 0 damage - Shuffle',
     image: 'assets/images/attack-modifiers/jaws-of-the-lion/base/monster/jl-am-m-19.png',
+    reshuffle: true,
   },
   {
     id: 'jl-am-m-20',
     description: 'Crit - x2 damage - Shuffle',
     image: 'assets/images/attack-modifiers/jaws-of-the-lion/base/monster/jl-am-m-20.png',
+    reshuffle: true,
   },
 ]

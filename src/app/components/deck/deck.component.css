@@ -20,6 +20,7 @@
   height: 150px;
   width: auto;
   border-radius: 5px;
+  position: relative;
 }
 
 .card-deck-label {
@@ -39,6 +40,7 @@
   width: 75px;
   border: none;
   margin-left: 16px;
+  background: none;
 
   img {
     height: 100%;
@@ -82,4 +84,73 @@
 
 button {
   margin: 4px;
+
+  &.highlight {
+    border-color: red;
+    border-radius: 2px;
+  }
+}
+
+.modal {
+  border: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+  .modal-info {
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    min-height: 100px;
+    max-height: 75%;
+    width: 50%;
+    background: white;
+    border-radius: 4px;
+
+    .modal-close-button {
+      position: absolute;
+      right: .5em;
+      top: .5em;
+      height: 1.5em;
+      width: 1.5em;
+      justify-content: center;
+      display: flex;
+    }
+  }
+}
+
+.drawn-card-container {
+  display: flex;
+
+  .drawn-card {
+    height: 150px;
+    width: 225px;
+    padding: .5em;
+  }
+}
+
+.discard-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em;
+
+  .discard-card {
+    height: 50px;
+    width: 75px;
+    padding: .5em;
+
+    .last-card-drawn-label {
+      font-size: 0.6em;
+      position: relative;
+      top: -.5em;
+      display: flex;
+      justify-content: center;
+    }
+  }
 }

@@ -12,7 +12,7 @@ import {NgClass, NgOptimizedImage} from "@angular/common";
   imports: [
     CardComponent,
     NgOptimizedImage,
-    NgClass
+    NgClass,
   ],
   templateUrl: './deck.component.html',
   styleUrl: './deck.component.css'
@@ -21,6 +21,7 @@ import {NgClass, NgOptimizedImage} from "@angular/common";
 export class DeckComponent {
   cardBackImage: string = ModifierCardBack.image;
   deckRemainderSizeStyle = '';
+  shuffleCardDrawn = false;
   // - count of remaining cards
   // - shuffle
   // - draw a card
@@ -121,6 +122,7 @@ export class DeckComponent {
 
     this.calculateDeckShadow();
     this.shuffle();
+    this.shuffleCardDrawn = false;
     console.log(this.monsterDrawPile);
   }
 
@@ -128,7 +130,7 @@ export class DeckComponent {
     this.monsterDrawnCards = [];
     for (let i = 0; i < numberDrawn; i++) {
       if (this.monsterDrawPile.length > 0) {
-        const drawnCard = this.monsterDrawPile.pop();
+        const drawnCard: Card | undefined = this.monsterDrawPile.pop();
         if (drawnCard) {
           this.monsterDrawnCards.push(drawnCard);
           if (drawnCard.description.includes('Bless')) {
@@ -139,6 +141,10 @@ export class DeckComponent {
             this.spendCurse('monster', drawnCard);
           } else {
             this.monsterDiscardPile.push(drawnCard);
+          }
+
+          if (drawnCard.reshuffle) {
+            this.shuffleCardDrawn = true;
           }
         }
         console.log(this.monsterDiscardPile);
@@ -220,13 +226,18 @@ export class DeckComponent {
   // }
 
   private calculateDeckShadow(): void {
-    this.deckRemainderSizeStyle = 'box-shadow: ';
-    let pixelOffset = 1;
+    const deckRemainder = this.monsterDrawPile.length / 4;
+    let pixelOffset = 0;
+    if(this.monsterDrawPile.length < 20) {
+      pixelOffset = (5 - Math.ceil(deckRemainder)) * 2;
+    }
+    let shadowPixelOffset = 1;
+    this.deckRemainderSizeStyle = `top: ${pixelOffset}px; left: ${pixelOffset}px; box-shadow: `;
 
-    for(let i = 0; i < this.monsterDrawPile.length / 4; i++) {
-      this.deckRemainderSizeStyle += `white ${pixelOffset}px ${pixelOffset}px,`;
-      this.deckRemainderSizeStyle += `var(--deck-card-color) ${pixelOffset+1}px ${pixelOffset+1}px,`;
-      pixelOffset += 2;
+    for(let i = 0; i < deckRemainder; i++) {
+      this.deckRemainderSizeStyle += `white ${shadowPixelOffset}px ${shadowPixelOffset}px,`;
+      this.deckRemainderSizeStyle += `var(--deck-card-color) ${shadowPixelOffset+1}px ${shadowPixelOffset+1}px,`;
+      shadowPixelOffset += 2;
     }
 
     this.deckRemainderSizeStyle = this.deckRemainderSizeStyle.substring(0, this.deckRemainderSizeStyle.length - 1) + ';';
