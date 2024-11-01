@@ -23,6 +23,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - [x] Indicate that a "reshuffle" card was drawn this round
 - [x] Discard pile count
 - [x] Discard pile view
+- [x] Remove ALL Bless/Curse cards
+- [x] Restore Bless and Curse decks to base
 
 ## Future Goals
 
@@ -60,17 +62,14 @@ Deck Component
 
 ### All decks
 - [ ] Load deck
+- [ ] Save new deck
 - [ ] Load a list of cards
   - [ ] Values
   - [ ] Image paths
   - [ ] Etc.
 
-### Monster modifier deck
-- [ ] Remove ALL Bless/Curse cards
-  - [ ] Restore Bless and Curse decks to base
-
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn
 - [ ] OnChange functions?
-- [ ] Move blurse cards out of deck and into app
+- [ ] Move blurse cards out of deck and into store
   - requires better separation of deck and app variable scope

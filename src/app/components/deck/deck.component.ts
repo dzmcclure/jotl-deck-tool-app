@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ModifierCardBack} from '../../constants/cards/modifier-card-back';
 import {CardComponent} from '../card/card.component';
 import {Card} from '../../models/card';
@@ -22,132 +22,149 @@ export class DeckComponent {
   cardBackImage: string = ModifierCardBack.image;
   deckRemainderSizeStyle = '';
   shuffleCardDrawn = false;
-  // - count of remaining cards
-  // - shuffle
-  // - draw a card
+  @Input({required: true}) owner!: string;
+  // ✓ count of remaining cards
+  // ✓ shuffle
+  // ✓ draw a card
   //   - if card says to draw again, draw again
-  //   - if card says to shuffle, shuffle
+  //   - if card says to shuffle, shuffle (at end of round)
   //     - shuffle discard pile into draw pile
-  //     - visual indicator this has happened (alert?) (bold color changed deck count number)
-  // - cards can be added
-  //   - shuffle when a card is added
-  //   - independent method for monster curse
-  // - cards can be removed
-  //   - some cards remove themselves
-  // - end of encounter 'reset' - load deck?
+  //     ✓ visual indicator this has to happen (shuffle button border change)
+  // ✓ cards can be added
+  //   ✓ shuffle when a card is added
+  //   ✓ independent method for monster curse
+  // ✓ cards can be removed
+  //   - todo: some cards remove themselves
+  // ✓ end of encounter 'reset' 
+  //   - todo: load decks
 
   // Draw/Discard Piles
-  monsterDrawPile: Card[] = [];
-  monsterDiscardPile: Card[] = [];
-  monsterDrawnCards: Card[] = [];
-  playerDrawPile: Card[] = [];
-  playerDiscardPile: Card[] = [];
-  playerDrawnCards: Card[] = [];
+  drawPile: Card[] = [];
+  discardPile: Card[] = [];
+  drawnCards: Card[] = [];
+  tempDrawPile: Card[] = [];
 
   // Decks
-  playerBlessDeck: Card[] = [];
+  blessDeck: Card[] = [];
   monsterCurseDeck: Card[] = [];
   playerCurseDeck: Card[] = [];
 
   public constructor() {
-    this.monsterDrawPile = _.clone(BaseMonsterModifierDeck);
-    this.playerBlessDeck = _.clone(BasePlayerBlessDeck);
+    this.drawPile = _.clone(BaseMonsterModifierDeck);
+    this.blessDeck = _.clone(BasePlayerBlessDeck);
     this.monsterCurseDeck = _.clone(BaseMonsterCurseDeck);
     // TODO - implement player curse deck
     this.playerCurseDeck = _.clone(BaseMonsterCurseDeck);
 
-    this.resetMonsterDeck();
+    this.resetDeck();
     this.calculateDeckShadow();
   }
 
-  public addBlessToMonsterModifierDeck(): void {
-    const blessCard = this.playerBlessDeck.pop();
+  public addBlessToModifierDeck(): void {
+    // pull bless from the appropriate store
+    //    check store
+    //    get card from store
+    //    update store to reflect changes
+    // const blessCard = store.GetBless(this.owner);
+    const blessCard = this.blessDeck.pop();
     if (blessCard) {
-      this.monsterDrawPile.push(blessCard);
+      this.drawPile.push(blessCard);
     } else {
       console.log('No bless cards left to add!');
     }
 
     this.calculateDeckShadow();
     this.shuffle();
-    console.log(this.monsterDrawPile);
+    console.log(this.drawPile);
   }
-
-  public addCurseToMonsterModifierDeck(): void {
-    const curseCard = this.monsterCurseDeck.pop();
+  
+  public addCurseToModifierDeck(): void {
+    // point to store curses
+    //    check store
+    //    get card from store
+    //    update store to reflect changes
+    // const curseCard = store.GetCurse(this.owner);
+    const curseCard = this.owner === 'monster' ? this.monsterCurseDeck.pop() : this.playerCurseDeck.pop();
     if (curseCard) {
-      this.monsterDrawPile.push(curseCard);
+      this.drawPile.push(curseCard);
     } else {
       console.log('No curse cards left to add!');
     }
 
     this.calculateDeckShadow();
     this.shuffle();
-    console.log(this.monsterDrawPile);
+    console.log(this.drawPile);
   }
 
   public addBlessToPlayerModifierDeck(): void {
-    const blessCard = this.playerBlessDeck.pop();
+    const blessCard = this.blessDeck.pop();
     if (blessCard) {
-      this.playerDrawPile.push(blessCard);
+      this.tempDrawPile.push(blessCard);
     } else {
       console.log('No bless cards left to add!');
     }
   }
-
-  public spendBless(card: Card): void {
-    this.playerBlessDeck.push(card);
+  
+  //    update store to reflect changes
+  public spendBless(card?: Card): void {
+    if(card){
+      this.blessDeck.push(card);
+    }
   }
 
-  // TODO - Type/enum safety for owner
-  public spendCurse(owner: string, card: Card): void {
-    owner === 'monster' ? this.monsterCurseDeck.push(card) : this.playerCurseDeck.push(card);
+  // point to store curses
+  //    update store to reflect changes
+  public spendCurse(card: Card): void {
+    this.owner === 'monster' ? this.monsterCurseDeck.push(card) : this.playerCurseDeck.push(card);
   }
 
-  public resetMonsterDeck(): void {
-    this.monsterDrawnCards = [];
-    this.monsterDrawPile = _.clone(BaseMonsterModifierDeck);
-    this.shuffleMonsterDeck();
+  public resetDeck(): void {
+    this.drawnCards = [];
+    this.drawPile = _.clone(BaseMonsterModifierDeck);
+    this.shuffleDrawPile();
+    this.blessDeck = _.clone(BasePlayerBlessDeck);
+    this.playerCurseDeck = _.clone(BaseMonsterCurseDeck);
+    this.monsterCurseDeck = _.clone(BaseMonsterCurseDeck);
   }
 
-  public returnMonsterDiscardsToDeck(): void {
-    this.monsterDiscardPile.forEach((card: Card) => {
-      this.monsterDrawPile.push(card);
+  public returnDiscardsToDeck(): void {
+    this.discardPile.forEach((card: Card) => {
+      this.drawPile.push(card);
     });
-    this.shuffleMonsterDeck()
+    this.shuffleDrawPile()
   }
 
-  public shuffleMonsterDeck(): void {
-    this.monsterDiscardPile = [];
+  public shuffleDrawPile(): void {
+    this.discardPile = [];
 
     this.calculateDeckShadow();
     this.shuffle();
     this.shuffleCardDrawn = false;
-    console.log(this.monsterDrawPile);
+    console.log(this.drawPile);
   }
 
-  public drawMonsterCard(numberDrawn: number = 1): void {
-    this.monsterDrawnCards = [];
+  public drawCard(numberDrawn: number = 1): void {
+    this.drawnCards = [];
     for (let i = 0; i < numberDrawn; i++) {
-      if (this.monsterDrawPile.length > 0) {
-        const drawnCard: Card | undefined = this.monsterDrawPile.pop();
+      if (this.drawPile.length > 0) {
+        const drawnCard: Card | undefined = this.drawPile.pop();
         if (drawnCard) {
-          this.monsterDrawnCards.push(drawnCard);
+          this.drawnCards.push(drawnCard);
           if (drawnCard.description.includes('Bless')) {
             console.log('Bless Card Drawn!')
             this.spendBless(drawnCard);
           } else if (drawnCard.description.includes('Curse')) {
             console.log('Curse Card Drawn!')
-            this.spendCurse('monster', drawnCard);
+            this.spendCurse(drawnCard);
           } else {
-            this.monsterDiscardPile.push(drawnCard);
+            this.discardPile.push(drawnCard);
           }
 
           if (drawnCard.reshuffle) {
             this.shuffleCardDrawn = true;
           }
         }
-        console.log(this.monsterDiscardPile);
+        console.log(this.discardPile);
       } else {
         console.log('No cards left to draw!!!');
       }
@@ -156,79 +173,10 @@ export class DeckComponent {
     this.calculateDeckShadow();
   }
 
-  public drawPlayerCard(numberDrawn: number = 1): void {
-    this.playerDrawnCards = [];
-    for (let i = 0; i < numberDrawn; i++) {
-      if (this.playerDrawPile.length > 0) {
-        const drawnCard = this.playerDrawPile.pop();
-        if (drawnCard) {
-          this.playerDiscardPile.push(drawnCard);
-          if (drawnCard.description.includes('Bless')) {
-            this.spendBless(drawnCard);
-          } else if (drawnCard.description.includes('Curse')) {
-            // this.spendCurse(deckOwner, drawnCard);
-            console.log('TBD')
-          } else {
-            // this.playerDrawnCards.push(drawnCard);
-            console.log('TBD')
-          }
-        }
-        console.log(this.playerDrawPile);
-      } else {
-        console.log('No cards left to draw!!!');
-      }
-    }
-  }
-
-  /*
-  TODO - Abstracted Draw Method
-  public drawCard(deckOwner: string = 'monster', numberDrawn: number = 1): void {
-    let discardPile: Card[] = [];
-    let drawPile: Card[] = [];
-    let drawnCards: Card[] = [];
-
-    if (deckOwner === 'monster') {
-      discardPile = this.monsterDiscardPile;
-      drawPile = this.monsterDrawPile;
-      drawnCards = this.monsterDrawnCards = [];
-    } else {
-      discardPile = this.playerDiscardPile;
-      drawPile = this.playerDrawPile;
-      drawnCards = this.playerDrawnCards = [];
-    }
-
-    for (let i = 0; i < numberDrawn; i++) {
-      if (drawPile.length > 0) {
-        const drawnCard = drawPile.pop();
-        if (drawnCard) {
-          discardPile.push(drawnCard);
-          if (drawnCard.description.includes('Bless')) {
-            this.spendBless(drawnCard);
-          } else if (drawnCard.description.includes('Curse')) {
-            // this.spendCurse(deckOwner, drawnCard);
-            console.log('TBD')
-          } else {
-            drawnCards.push(drawnCard);
-          }
-        }
-        console.log(drawPile);
-      } else {
-        console.log('No cards left to draw!!!');
-      }
-    }
-  }
-  */
-
-  // public addCard(newCard: number = this.cards.length): void {
-  //   console.log('Adding in the new card: ', newCard);
-  //   this.cards.push(newCard);
-  //   console.log(this.cards);
-  // }
-
   private calculateDeckShadow(): void {
-    const deckRemainder = this.monsterDrawPile.length / 4;
+    const deckRemainder = this.drawPile.length / 4;
     let pixelOffset = 0;
-    if(this.monsterDrawPile.length < 20) {
+    if(this.drawPile.length < 20) {
       pixelOffset = (5 - Math.ceil(deckRemainder)) * 2;
     }
     let shadowPixelOffset = 1;
@@ -245,7 +193,7 @@ export class DeckComponent {
 
   // Stolen from the internet ty internet
   private shuffle(): void {
-    let currentIndex = this.monsterDrawPile.length;
+    let currentIndex = this.drawPile.length;
 
     // While there remain elements to shuffle...
     while (currentIndex != 0) {
@@ -255,8 +203,8 @@ export class DeckComponent {
       currentIndex--;
 
       // And swap it with the current element.
-      [this.monsterDrawPile[currentIndex], this.monsterDrawPile[randomIndex]] = [
-        this.monsterDrawPile[randomIndex], this.monsterDrawPile[currentIndex]];
+      [this.drawPile[currentIndex], this.drawPile[randomIndex]] = [
+        this.drawPile[randomIndex], this.drawPile[currentIndex]];
     }
   }
 }

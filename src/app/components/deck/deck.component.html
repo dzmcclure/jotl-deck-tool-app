@@ -1,31 +1,31 @@
 <div class="deck-container">
 <!--  Shuffle and Reset Buttons-->
   <div class="deck-buttons-container">
-    <button (click)="returnMonsterDiscardsToDeck()"
+    <button (click)="returnDiscardsToDeck()"
             [ngClass]="{highlight: shuffleCardDrawn}"
             title="Shuffle deck and keep additional cards">
       Shuffle Deck
     </button>
-    <button (click)="resetMonsterDeck()"
-            title="Reset monster deck to base and then shuffle">
+    <button (click)="resetDeck()"
+            title="Reset this deck to base and then shuffle">
       Reset Deck
     </button>
   </div>
   <div class="card-deck-container">
     <img class="card-deck"
          [style]="deckRemainderSizeStyle"
-         alt="Remaining Deck of Monster Modifier Cards"
+         alt="Remaining Deck of Modifier Cards"
          [src]="cardBackImage"/>
   </div>
   <div class="deck-buttons-container">
     <button class="button-icon"
-            (click)="addBlessToMonsterModifierDeck()"
-            title="Adds a Bless card to the Monster Modifier deck">
+            (click)="addBlessToModifierDeck()"
+            title="Adds a Bless card to this Modifier deck">
       <img alt="bless icon" src="assets/icons/bless.png"/>
     </button>
     <button class="button-icon"
-            (click)="addCurseToMonsterModifierDeck()"
-            title="Adds a Curse card to the Monster Modifier deck">
+            (click)="addCurseToModifierDeck()"
+            title="Adds a Curse card to this Modifier deck">
       <img alt="curse icon" src="assets/icons/curse.png"/>
     </button>
   </div>
@@ -34,39 +34,44 @@
 <div class="card-deck-label">
   <div class="card-deck-remainder">
     <div style="display: flex; justify-content: center; padding: 4px;">Cards left:</div>
-    <div style="display: flex; justify-content: center; padding: 4px;">{{monsterDrawPile.length}}</div>
+    <div style="display: flex; justify-content: center; padding: 4px;">{{drawPile.length}}</div>
   </div>
-  <button (click)="myDialog.show()" title="Show Discard Pile">Discard Pile: {{monsterDiscardPile.length}}</button>
+  <button (click)="myDialog.show()" title="Show Discard Pile">Discard Pile: {{discardPile.length}}</button>
   <div class="remaining-blurses">
     <div>
-      <img class="image-remaining-blurses" alt="Remaining Monster Curse Cards " src="assets/icons/curse.png" />
+      <img class="image-remaining-blurses" alt="Remaining Curse Cards " src="assets/icons/curse.png" />
       <img class="image-remaining-blurses" alt="Remaining Bless Cards" src="assets/icons/bless.png" />
     </div>
     <div class="label-remaining-blurses-container">
-      <div class="label-remaining-blurses">{{monsterCurseDeck.length}}</div>
-      <div class="label-remaining-blurses">{{playerBlessDeck.length}}</div>
+      @if(owner === 'monster') {  
+        <div class="label-remaining-blurses">{{monsterCurseDeck.length}}</div>
+      } @else {
+        <div class="label-remaining-blurses">{{playerCurseDeck.length}}</div>
+      }
+      <div class="label-remaining-blurses">{{blessDeck.length}}</div>
     </div>
   </div>
 </div>
 
 <br>
 <!--Other Buttons-->
-<button (click)="drawMonsterCard(1)">Draw a card</button>
-<button (click)="drawMonsterCard(2)">Draw two cards</button>
+<button (click)="drawCard(1)">Draw a card</button>
+<button (click)="drawCard(2)">Draw two cards</button>
 
-
-<button (click)="addBlessToPlayerModifierDeck()"
-        title="Removes a card from the Bless deck">
-  Bless Player
-</button>
-<button (click)="drawPlayerCard()"
-        title="Returns a used Bless card to the Bless deck">
-  Return Bless Card
-</button>
+@if(owner === 'monster') {
+  <button (click)="addBlessToPlayerModifierDeck()"
+          title="Removes a card from the Bless deck">
+    Bless Player
+  </button>
+  <button (click)="spendBless(tempDrawPile.pop())"
+          title="Returns a used Bless card to the Bless deck">
+    Return Bless Card
+  </button>
+}
 <br>
 <!--Display last drawn cards (max of 2)-->
 <div class="drawn-card-container">
-  @for(card of monsterDrawnCards; track card.id) {
+  @for(card of drawnCards; track card.id) {
     <div class="drawn-card">
       <app-card [card]="card"/>
     </div>
@@ -79,15 +84,15 @@
             class="modal-close-button"
             title="Show Discard Pile">X</button>
     <div class="discard-card-container">
-      @if(monsterDiscardPile.length === 0) {
+      @if(discardPile.length === 0) {
         <div style="display: flex; justify-content: center">
           No cards in discard pile
         </div>
       }
-      @for(card of monsterDiscardPile; track $index) {
+      @for(card of discardPile; track $index) {
         <div class="discard-card">
           <app-card [card]="card"/>
-          @if($index === monsterDiscardPile.length - 1) {
+          @if($index === discardPile.length - 1) {
             <span class="last-card-drawn-label">Last card drawn</span>
           }
         </div>

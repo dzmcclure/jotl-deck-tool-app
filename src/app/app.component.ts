@@ -27,11 +27,20 @@ export class AppComponent {
   // - Player
   //   - Display decks (child component)
   //   - 'level up' decks by changing cards and saving new deck
-  // - Monster deck sections
-  //   - Display decks (child component)
-  //   - has separate curses
+  // ✓ Monster deck section
+  //   ✓ Display deck (child component)
+  //   ✓ has separate curses
+  // - End round (trigger all shuffles if needed)
+  // - End of encounter 'reset' - (reset store, trigger all deck resets/loads)
   // - Drawn card display (child component)
   // - Other high-level app info
   //   - version
   // - Load/Save a session
+
+// all shared pieces in parent, observables
+//    -> when action on child, send up to parent
+
+// store
+
+
 }

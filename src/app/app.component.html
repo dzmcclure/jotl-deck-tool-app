@@ -1,4 +1,16 @@
 <strong style="font-size: 20pt;">{{title}}</strong>
 <br>
-<app-deck></app-deck>
+<app-deck owner="monster"></app-deck>
+<div class="better">
+  <app-deck owner="player0"></app-deck>
+  <app-deck owner="player1"></app-deck>
+</div>
+<div>
+  <!--
+    @for(int i = 2; i < playerCount; i++){
+      <app-deck [owner]="'player'$i"></app-deck>
+    }
+  -->
+</div>
+
 
