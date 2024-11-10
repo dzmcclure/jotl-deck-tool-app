@@ -3,8 +3,9 @@ import {ModifierCardBack} from '../../constants/cards/modifier-card-back';
 import {CardComponent} from '../card/card.component';
 import {Card} from '../../models/card';
 import _ from 'lodash';
-import {BaseMonsterCurseDeck, BaseMonsterModifierDeck, BasePlayerBlessDeck} from '../../constants/decks';
+import {BaseMonsterModifierDeck} from '../../constants/decks';
 import {NgClass, NgOptimizedImage} from "@angular/common";
+import { BlurseDecks } from '../../service/deck-service';
 
 @Component({
   selector: 'app-deck',
@@ -26,7 +27,7 @@ export class DeckComponent {
   // ✓ count of remaining cards
   // ✓ shuffle
   // ✓ draw a card
-  //   - if card says to draw again, draw again
+  //   - if card says to draw again, draw again -- NOT IN JOTL
   //   - if card says to shuffle, shuffle (at end of round)
   //     - shuffle discard pile into draw pile
   //     ✓ visual indicator this has to happen (shuffle button border change)
@@ -44,29 +45,14 @@ export class DeckComponent {
   drawnCards: Card[] = [];
   tempDrawPile: Card[] = [];
 
-  // Decks
-  blessDeck: Card[] = [];
-  monsterCurseDeck: Card[] = [];
-  playerCurseDeck: Card[] = [];
-
-  public constructor() {
+  public constructor(public blurseDeckService: BlurseDecks) {
     this.drawPile = _.clone(BaseMonsterModifierDeck);
-    this.blessDeck = _.clone(BasePlayerBlessDeck);
-    this.monsterCurseDeck = _.clone(BaseMonsterCurseDeck);
-    // TODO - implement player curse deck
-    this.playerCurseDeck = _.clone(BaseMonsterCurseDeck);
-
     this.resetDeck();
     this.calculateDeckShadow();
   }
 
   public addBlessToModifierDeck(): void {
-    // pull bless from the appropriate store
-    //    check store
-    //    get card from store
-    //    update store to reflect changes
-    // const blessCard = store.GetBless(this.owner);
-    const blessCard = this.blessDeck.pop();
+    const blessCard = this.blurseDeckService.drawBless();
     if (blessCard) {
       this.drawPile.push(blessCard);
     } else {
@@ -79,12 +65,7 @@ export class DeckComponent {
   }
   
   public addCurseToModifierDeck(): void {
-    // point to store curses
-    //    check store
-    //    get card from store
-    //    update store to reflect changes
-    // const curseCard = store.GetCurse(this.owner);
-    const curseCard = this.owner === 'monster' ? this.monsterCurseDeck.pop() : this.playerCurseDeck.pop();
+    const curseCard = this.blurseDeckService.drawCurse(this.owner);
     if (curseCard) {
       this.drawPile.push(curseCard);
     } else {
@@ -95,36 +76,22 @@ export class DeckComponent {
     this.shuffle();
     console.log(this.drawPile);
   }
-
-  public addBlessToPlayerModifierDeck(): void {
-    const blessCard = this.blessDeck.pop();
-    if (blessCard) {
-      this.tempDrawPile.push(blessCard);
-    } else {
-      console.log('No bless cards left to add!');
-    }
-  }
   
-  //    update store to reflect changes
   public spendBless(card?: Card): void {
     if(card){
-      this.blessDeck.push(card);
+      this.blurseDeckService.returnBless(card);
     }
   }
 
-  // point to store curses
-  //    update store to reflect changes
   public spendCurse(card: Card): void {
-    this.owner === 'monster' ? this.monsterCurseDeck.push(card) : this.playerCurseDeck.push(card);
+    this.blurseDeckService.returnCurse(this.owner, card);
   }
 
   public resetDeck(): void {
     this.drawnCards = [];
     this.drawPile = _.clone(BaseMonsterModifierDeck);
     this.shuffleDrawPile();
-    this.blessDeck = _.clone(BasePlayerBlessDeck);
-    this.playerCurseDeck = _.clone(BaseMonsterCurseDeck);
-    this.monsterCurseDeck = _.clone(BaseMonsterCurseDeck);
+    this.blurseDeckService.resetDecks();
   }
 
   public returnDiscardsToDeck(): void {

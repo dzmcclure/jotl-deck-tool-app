@@ -25,6 +25,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - [x] Discard pile view
 - [x] Remove ALL Bless/Curse cards
 - [x] Restore Bless and Curse decks to base
+- [x] Move blurse cards out of deck and into store
 
 ## Future Goals
 
@@ -71,5 +72,5 @@ Deck Component
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn
 - [ ] OnChange functions?
-- [ ] Move blurse cards out of deck and into store
-  - requires better separation of deck and app variable scope
+- [ ] jotl submodule does not have base modifier decks for players
+- [ ] Add icons for player symbols

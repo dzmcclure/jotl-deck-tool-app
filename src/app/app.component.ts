@@ -40,7 +40,7 @@ export class AppComponent {
 // all shared pieces in parent, observables
 //    -> when action on child, send up to parent
 
-// store
+// ✓ store
 
 
 }
