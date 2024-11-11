@@ -69,10 +69,6 @@ Deck Component
   - [ ] loading a deck sets owner and character
   - [ ] cannot load multiple of the same character
 - [ ] Save new deck
-- [ ] Load a list of cards
-  - [ ] Values
-  - [ ] Image paths
-  - [ ] Etc.
 
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn

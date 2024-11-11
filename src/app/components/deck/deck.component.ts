@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { BaseMonsterModifierDeck } from '../../constants/decks';
 import { NgClass, NgOptimizedImage } from "@angular/common";
 import { BlurseDecks } from '../../service/deck-service';
-import { playerIcons } from '../../constants/variables';
+import {monsterIcon, playerIcons} from '../../constants/variables';
 
 @Component({
   selector: 'app-deck',
@@ -38,7 +38,7 @@ export class DeckComponent implements OnInit {
   //   ✓ independent method for monster curse
   // ✓ cards can be removed
   //   - todo: some cards remove themselves
-  // ✓ end of encounter 'reset' 
+  // ✓ end of encounter 'reset'
   //   - todo: load decks
 
   // Draw/Discard Piles
@@ -55,7 +55,7 @@ export class DeckComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.owner);
-    this.iconSrc = playerIcons[this.owner] ?? 'monster.png';
+    this.iconSrc = playerIcons[this.owner] ?? monsterIcon;
   }
 
   public addBlessToModifierDeck(): void {
