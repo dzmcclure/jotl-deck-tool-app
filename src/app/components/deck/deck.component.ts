@@ -55,7 +55,7 @@ export class DeckComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.owner);
-    this.iconSrc = playerIcons.get(this.owner) ?? 'monster.png';
+    this.iconSrc = playerIcons[this.owner] ?? 'monster.png';
   }
 
   public addBlessToModifierDeck(): void {
