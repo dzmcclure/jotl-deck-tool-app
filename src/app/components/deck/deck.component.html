@@ -1,7 +1,7 @@
 <div class="deck-container">
 <!--  Shuffle and Reset Buttons-->
   <div class="deck-buttons-container">
-    <img alt="{{owner}} Symbol" src="tbd"/>
+    <img alt="{{owner}} Symbol" [src]="iconSrc"/>
     <button (click)="returnDiscardsToDeck()"
             [ngClass]="{highlight: shuffleCardDrawn}"
             title="Shuffle deck and keep additional cards">

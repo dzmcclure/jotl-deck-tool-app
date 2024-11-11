@@ -1,11 +1,12 @@
-import {Component, Input} from '@angular/core';
-import {ModifierCardBack} from '../../constants/cards/modifier-card-back';
-import {CardComponent} from '../card/card.component';
-import {Card} from '../../models/card';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModifierCardBack } from '../../constants/cards/modifier-card-back';
+import { CardComponent } from '../card/card.component';
+import { Card } from '../../models/card';
 import _ from 'lodash';
-import {BaseMonsterModifierDeck} from '../../constants/decks';
-import {NgClass, NgOptimizedImage} from "@angular/common";
+import { BaseMonsterModifierDeck } from '../../constants/decks';
+import { NgClass, NgOptimizedImage } from "@angular/common";
 import { BlurseDecks } from '../../service/deck-service';
+import { playerIcons } from '../../constants/variables';
 
 @Component({
   selector: 'app-deck',
@@ -19,11 +20,12 @@ import { BlurseDecks } from '../../service/deck-service';
   styleUrl: './deck.component.css'
 })
 
-export class DeckComponent {
+export class DeckComponent implements OnInit {
   cardBackImage: string = ModifierCardBack.image;
   deckRemainderSizeStyle = '';
   shuffleCardDrawn = false;
-  @Input({required: true}) owner!: string;
+  @Input({ required: true }) owner!: string;
+  iconSrc: string = '';
   // ✓ count of remaining cards
   // ✓ shuffle
   // ✓ draw a card
@@ -51,6 +53,11 @@ export class DeckComponent {
     this.calculateDeckShadow();
   }
 
+  ngOnInit(): void {
+    console.log(this.owner);
+    this.iconSrc = playerIcons.get(this.owner) ?? 'monster.png';
+  }
+
   public addBlessToModifierDeck(): void {
     const blessCard = this.blurseDeckService.drawBless();
     if (blessCard) {
@@ -63,7 +70,7 @@ export class DeckComponent {
     this.shuffle();
     console.log(this.drawPile);
   }
-  
+
   public addCurseToModifierDeck(): void {
     const curseCard = this.blurseDeckService.drawCurse(this.owner);
     if (curseCard) {
@@ -76,9 +83,9 @@ export class DeckComponent {
     this.shuffle();
     console.log(this.drawPile);
   }
-  
+
   public spendBless(card?: Card): void {
-    if(card){
+    if (card) {
       this.blurseDeckService.returnBless(card);
     }
   }
@@ -143,15 +150,15 @@ export class DeckComponent {
   private calculateDeckShadow(): void {
     const deckRemainder = this.drawPile.length / 4;
     let pixelOffset = 0;
-    if(this.drawPile.length < 20) {
+    if (this.drawPile.length < 20) {
       pixelOffset = (5 - Math.ceil(deckRemainder)) * 2;
     }
     let shadowPixelOffset = 1;
     this.deckRemainderSizeStyle = `top: ${pixelOffset}px; left: ${pixelOffset}px; box-shadow: `;
 
-    for(let i = 0; i < deckRemainder; i++) {
+    for (let i = 0; i < deckRemainder; i++) {
       this.deckRemainderSizeStyle += `white ${shadowPixelOffset}px ${shadowPixelOffset}px,`;
-      this.deckRemainderSizeStyle += `var(--deck-card-color) ${shadowPixelOffset+1}px ${shadowPixelOffset+1}px,`;
+      this.deckRemainderSizeStyle += `var(--deck-card-color) ${shadowPixelOffset + 1}px ${shadowPixelOffset + 1}px,`;
       shadowPixelOffset += 2;
     }
 

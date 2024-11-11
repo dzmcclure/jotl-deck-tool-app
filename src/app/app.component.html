@@ -2,11 +2,17 @@
 <br>
 <app-deck owner="monster"></app-deck>
 <div class="better">
-  <app-deck owner="player0"></app-deck>
-  <app-deck owner="player1"></app-deck>
+  <app-deck owner="hatchet"></app-deck>
+  <app-deck owner="voidwarden"></app-deck>
 </div>
 <div>
   <!--
+    if playercount less than 4
+    add player section/button
+      this pulls up load deck screen
+      loading a deck sets owner and character
+        cannot load multiple of the same character
+        
     @for(int i = 2; i < playerCount; i++){
       <app-deck [owner]="'player'$i"></app-deck>
     }
