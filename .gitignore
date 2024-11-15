@@ -6,6 +6,9 @@
 # Large Files
 src/assets/images
 
+# Character Save Folder
+src/app/saves/
+
 # Compiled output
 /dist
 /tmp
