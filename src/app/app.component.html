@@ -1,22 +1,44 @@
 <strong style="font-size: 20pt;">{{title}}</strong>
 <br>
-<app-deck owner="monster"></app-deck>
+<app-deck owner="monster" [baseDeck]="monsterDeck"></app-deck>
+
 <div class="better">
-  <app-deck owner="hatchet"></app-deck>
-  <app-deck owner="voidwarden"></app-deck>
+<!--  <app-deck owner="demolitionist"></app-deck>-->
+<!--  <app-deck owner="hatchet"></app-deck>-->
+<!--  <app-deck owner="redGuard"></app-deck>-->
+<!--  <app-deck owner="voidwarden"></app-deck>-->
 </div>
 <div>
-  <!--
-    if playercount less than 4
-    add player section/button
-      this pulls up load deck screen
-      loading a deck sets owner and character
-        cannot load multiple of the same character
-        
-    @for(int i = 2; i < playerCount; i++){
-      <app-deck [owner]="'player'$i"></app-deck>
-    }
-  -->
+  <!-- TODO: Add/Load functions are both executed on OK button press-->
+  @if (playerCount < 4) {
+    <div class="add-deck-container">
+      @if (!addPlayerDialogVisible) {
+        <span class="add-deck-label" (click)="addPlayerDialogVisible = true">Add a new deck/player</span>
+      } @else {
+        <div class="center-text full-width">Create a new Character:</div>
+        <div class="class-options">
+          <img [ngClass]="{disabled: loadedClasses.demolitionist, selected: selectedClass === 'demolitionist'}"
+               (click)="selectClass('demolitionist')"
+               src="assets/icons/demolitionist.png">
+          <img [ngClass]="{disabled: loadedClasses.hatchet, selected: selectedClass === 'hatchet'}"
+               (click)="selectClass('hatchet')"
+               src="assets/icons/hatchet.png">
+          <img [ngClass]="{disabled: loadedClasses.redGuard, selected: selectedClass === 'redGuard'}"
+               (click)="selectClass('redGuard')"
+               src="assets/icons/redguard.png">
+          <img [ngClass]="{disabled: loadedClasses.voidwarden, selected: selectedClass === 'voidwarden'}"
+               (click)="selectClass('voidwarden')"
+               src="assets/icons/voidwarden.png">
+        </div>
+        <div class="center-text full-width">- OR -</div>
+        <input type="file" class="load-deck center-text full-width" (change)="loadDeck($event)">
+        <div class="center-text full-width">
+          <button (click)="addPlayer()">OK</button>
+          <button (click)="addPlayerDialogVisible = false">Cancel</button>
+        </div>
+      }
+    </div>
+  }
 </div>
 
 

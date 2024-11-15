@@ -1,9 +1,19 @@
 import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterOutlet} from '@angular/router';
 import {NewViewComponent} from './new-view/new-view.component';
 import {DeckComponent} from './components/deck/deck.component';
+import {BaseMonsterModifierDeck} from './constants/decks';
+import _ from 'lodash';
+import {Deck} from './models/deck';
+
+interface CharacterClassList {
+  demolitionist: boolean;
+  hatchet: boolean;
+  redGuard: boolean;
+  voidwarden: boolean;
+}
 
 @Component({
   selector: 'app-root',
@@ -22,6 +32,22 @@ import {DeckComponent} from './components/deck/deck.component';
 export class AppComponent {
   title: string = 'jotl-deck-app';
   version: string = 'v0.2';
+
+  addPlayerDialogVisible = false;
+  monsterDeck = _.clone(BaseMonsterModifierDeck);
+  playerCount = 0;
+  selectedClass = '';
+  loadedClasses: CharacterClassList = {
+    demolitionist: false,
+    hatchet: false,
+    redGuard: false,
+    voidwarden: false,
+  };
+  loadedDeck: Deck | null = null;
+
+  constructor(private viewContainer: ViewContainerRef) {
+    // Intentionally left blank
+  }
   // - Load a deck
   // - Save a Deck
   // - Player
@@ -35,12 +61,29 @@ export class AppComponent {
   // - Drawn card display (child component)
   // - Other high-level app info
   //   - version
-  // - Load/Save a session
 
-// all shared pieces in parent, observables
-//    -> when action on child, send up to parent
+  public selectClass(characterClass: keyof CharacterClassList): void {
+    this.selectedClass = !this.loadedClasses[characterClass] ? characterClass : '';
+  }
 
-// ✓ store
+  public addPlayer(): void {
+    if (this.selectedClass !== '') {
+      console.log('adding a player');
+      this.addPlayerDialogVisible = true;
+      this.playerCount++;
+      const newDeckComponent = this.viewContainer.createComponent(DeckComponent);
+      newDeckComponent.instance.baseDeck = _.clone(BaseMonsterModifierDeck);
 
+      newDeckComponent.instance.owner = this.selectedClass;
+      this.loadedClasses[this.selectedClass as keyof CharacterClassList] = true;
+      this.selectedClass = '';
+    }
+  }
 
+  public async loadDeck(event: any): Promise<void> {
+    console.log('loading a deck:');
+    this.loadedDeck = JSON.parse(await event.target.files[0].text());
+    // TODO: Load file into a deck thing, set class, figure out perks
+    // TODO: How do we tell this is a valid JSON deck file?
+  }
 }

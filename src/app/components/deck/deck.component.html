@@ -14,9 +14,9 @@
   </div>
   <div class="card-deck-container">
     <img class="card-deck"
-         [style]="deckRemainderSizeStyle"
-         alt="Remaining Deck of Modifier Cards"
-         [src]="cardBackImage"/>
+       [style]="deckRemainderSizeStyle"
+       alt="Remaining Deck of Modifier Cards"
+       [src]="cardBackImage"/>
   </div>
   <div class="deck-buttons-container">
     <button class="button-icon"
@@ -65,8 +65,8 @@
   }
 </div>
 <!--Discard card modal and functionality-->
-<dialog #myDialog class="modal" (click)="myDialog.close()">
-  <div class="modal-info">
+<dialog #myDialog class="discard-modal" (click)="myDialog.close()">
+  <div class="discard-modal-info">
     <button (click)="myDialog.close()"
             class="modal-close-button"
             title="Show Discard Pile">X</button>

@@ -27,6 +27,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - [x] Restore Bless and Curse decks to base
 - [x] Move blurse cards out of deck and into store
 - [x] Add icons for player symbols
+- [x] Add player section/button
+- [x] Cannot add/load multiple of the same character
 
 ## Future Goals
 
@@ -63,11 +65,8 @@ Deck Component
 
 
 ### All decks
-- [ ] Add player section/button
-  - this pulls up load deck screen
 - [ ] Load deck
   - [ ] loading a deck sets owner and character
-  - [ ] cannot load multiple of the same character
 - [ ] Save new deck
 
 ### Misc/To Be Sorted

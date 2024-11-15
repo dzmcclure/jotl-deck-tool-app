@@ -1,11 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ModifierCardBack } from '../../constants/cards/modifier-card-back';
-import { CardComponent } from '../card/card.component';
-import { Card } from '../../models/card';
+import {Component, Input, OnInit} from '@angular/core';
+import {ModifierCardBack} from '../../constants/cards/modifier-card-back';
+import {CardComponent} from '../card/card.component';
+import {Card} from '../../models/card';
 import _ from 'lodash';
-import { BaseMonsterModifierDeck } from '../../constants/decks';
-import { NgClass, NgOptimizedImage } from "@angular/common";
-import { BlurseDecks } from '../../service/deck-service';
+import {NgClass, NgOptimizedImage} from '@angular/common';
+import {BlurseDecks} from '../../service/deck-service';
 import {monsterIcon, playerIcons} from '../../constants/variables';
 
 @Component({
@@ -24,7 +23,8 @@ export class DeckComponent implements OnInit {
   cardBackImage: string = ModifierCardBack.image;
   deckRemainderSizeStyle = '';
   shuffleCardDrawn = false;
-  @Input({ required: true }) owner!: string;
+  @Input({required: true}) baseDeck: Card[] = [];
+  @Input({required: true}) owner!: string;
   iconSrc: string = '';
   // ✓ count of remaining cards
   // ✓ shuffle
@@ -39,23 +39,23 @@ export class DeckComponent implements OnInit {
   // ✓ cards can be removed
   //   - todo: some cards remove themselves
   // ✓ end of encounter 'reset'
-  //   - todo: load decks
 
   // Draw/Discard Piles
   drawPile: Card[] = [];
   discardPile: Card[] = [];
   drawnCards: Card[] = [];
-  tempDrawPile: Card[] = [];
 
   public constructor(public blurseDeckService: BlurseDecks) {
-    this.drawPile = _.clone(BaseMonsterModifierDeck);
-    this.resetDeck();
-    this.calculateDeckShadow();
+    // Intentionally left blank
   }
 
   ngOnInit(): void {
     console.log(this.owner);
+    console.log(this.baseDeck);
     this.iconSrc = playerIcons[this.owner] ?? monsterIcon;
+
+    this.resetDeck();
+    this.calculateDeckShadow();
   }
 
   public addBlessToModifierDeck(): void {
@@ -96,7 +96,7 @@ export class DeckComponent implements OnInit {
 
   public resetDeck(): void {
     this.drawnCards = [];
-    this.drawPile = _.clone(BaseMonsterModifierDeck);
+    this.drawPile = _.clone(this.baseDeck);
     this.shuffleDrawPile();
     this.blurseDeckService.resetDecks();
   }
@@ -146,6 +146,7 @@ export class DeckComponent implements OnInit {
 
     this.calculateDeckShadow();
   }
+
 
   private calculateDeckShadow(): void {
     const deckRemainder = this.drawPile.length / 4;
