@@ -1,6 +1,7 @@
 .deck-container {
   display: flex;
   max-width: 400px;
+  padding: 1em
 }
 
 .card-deck-container {
