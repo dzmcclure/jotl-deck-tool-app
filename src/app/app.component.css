@@ -35,8 +35,8 @@
       opacity: .75;
 
       &.disabled {
-        background-color: #BBBBBB;
-        opacity: 0.25;
+        opacity: 0.25 !important;
+        cursor: default !important;
       }
 
       &.selected {

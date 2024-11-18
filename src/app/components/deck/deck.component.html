@@ -1,15 +1,11 @@
 <div class="deck-container">
 <!--  Shuffle and Reset Buttons-->
   <div class="deck-buttons-container">
-    <img alt="{{owner}} Symbol" [src]="iconSrc"/>
+    <img class="img-button" alt="{{owner}} Symbol" [src]="iconSrc" (click)="resetDeck()" title="Reset Deck"/>
     <button (click)="returnDiscardsToDeck()"
             [ngClass]="{highlight: shuffleCardDrawn}"
             title="Shuffle deck and keep additional cards">
       Shuffle Deck
-    </button>
-    <button (click)="resetDeck()"
-            title="Reset this deck to base and then shuffle">
-      Reset Deck
     </button>
   </div>
   <div class="card-deck-container">
@@ -22,12 +18,12 @@
     <button class="button-icon"
             (click)="addBlessToModifierDeck()"
             title="Adds a Bless card to this Modifier deck">
-      <img alt="bless icon" src="assets/icons/bless.png"/>
+      <img class="img-button" alt="bless icon" src="assets/icons/bless.png"/>
     </button>
     <button class="button-icon"
             (click)="addCurseToModifierDeck()"
             title="Adds a Curse card to this Modifier deck">
-      <img alt="curse icon" src="assets/icons/curse.png"/>
+      <img class="img-button" alt="curse icon" src="assets/icons/curse.png"/>
     </button>
   </div>
 </div>

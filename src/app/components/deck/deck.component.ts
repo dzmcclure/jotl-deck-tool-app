@@ -97,9 +97,15 @@ export class DeckComponent implements OnInit {
 
   public resetDeck(): void {
     this.drawnCards = [];
+    this.drawPile.forEach((card) => {
+      if (card.description.includes('Bless')) {
+        this.spendBless(card);
+      } else if (card.description.includes('Curse')) {
+        this.spendCurse(card);
+      }
+    });
     this.drawPile = _.clone(this.baseDeck);
     this.shuffleDrawPile();
-    this.blurseDeckService.resetDecks();
   }
 
   public returnDiscardsToDeck(): void {
