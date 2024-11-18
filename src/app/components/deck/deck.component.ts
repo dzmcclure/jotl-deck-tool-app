@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ModifierCardBack} from '../../constants/cards/modifier-card-back';
-import {CardComponent} from '../card/card.component';
-import {Card} from '../../models/card';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModifierCardBack } from '../../constants/cards/modifier-card-back';
+import { CardComponent } from '../card/card.component';
+import { Card } from '../../models/card';
 import _ from 'lodash';
-import {NgClass, NgOptimizedImage} from '@angular/common';
-import {BlurseDecks} from '../../service/deck-service';
-import {monsterIcon, playerIcons} from '../../constants/variables';
+import { NgClass, NgOptimizedImage } from '@angular/common';
+import { BlurseDecks } from '../../service/deck-service';
+import { monsterIcon, playerIcons } from '../../constants/variables';
 
 @Component({
   selector: 'app-deck',
@@ -23,8 +23,9 @@ export class DeckComponent implements OnInit {
   cardBackImage: string = ModifierCardBack.image;
   deckRemainderSizeStyle = '';
   shuffleCardDrawn = false;
-  @Input({required: true}) baseDeck: Card[] = [];
-  @Input({required: true}) owner!: string;
+  @Input({ required: true }) baseDeck: Card[] = [];
+  @Input({ required: true }) owner!: string;
+  @Input() perks: string[] = [];
   iconSrc: string = '';
   // ✓ count of remaining cards
   // ✓ shuffle
@@ -145,6 +146,23 @@ export class DeckComponent implements OnInit {
     }
 
     this.calculateDeckShadow();
+  }
+
+  public pickPerk(): void {
+    //add card to base deck
+    //set drawpile to base deck - call reset?
+  }
+
+  public saveDeck(): void {
+    const playerInfo = JSON.stringify({
+      class: this.owner,
+      deck: this.baseDeck,
+      perks: this.perks,
+    });
+    const playerBlob = new Blob([playerInfo], { type: "application/octet-stream" });
+
+    const url = window.URL.createObjectURL(playerBlob);
+    window.open(url);
   }
 
 

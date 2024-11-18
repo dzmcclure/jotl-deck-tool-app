@@ -17,16 +17,16 @@
       } @else {
         <div class="center-text full-width">Create a new Character:</div>
         <div class="class-options">
-          <img [ngClass]="{disabled: loadedClasses.demolitionist, selected: selectedClass === 'demolitionist'}"
+          <img [ngClass]="{disabled: loadedClasses.get('demolitionist'), selected: selectedClass === 'demolitionist'}"
                (click)="selectClass('demolitionist')"
                src="assets/icons/demolitionist.png">
-          <img [ngClass]="{disabled: loadedClasses.hatchet, selected: selectedClass === 'hatchet'}"
+          <img [ngClass]="{disabled: loadedClasses.get('hatchet'), selected: selectedClass === 'hatchet'}"
                (click)="selectClass('hatchet')"
                src="assets/icons/hatchet.png">
-          <img [ngClass]="{disabled: loadedClasses.redGuard, selected: selectedClass === 'redGuard'}"
+          <img [ngClass]="{disabled: loadedClasses.get('redGuard'), selected: selectedClass === 'redGuard'}"
                (click)="selectClass('redGuard')"
                src="assets/icons/redguard.png">
-          <img [ngClass]="{disabled: loadedClasses.voidwarden, selected: selectedClass === 'voidwarden'}"
+          <img [ngClass]="{disabled: loadedClasses.get('voidwarden'), selected: selectedClass === 'voidwarden'}"
                (click)="selectClass('voidwarden')"
                src="assets/icons/voidwarden.png">
         </div>

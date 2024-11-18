@@ -29,6 +29,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - [x] Add icons for player symbols
 - [x] Add player section/button
 - [x] Cannot add/load multiple of the same character
+- [x] Load finished
+- [x] Able to save a file - guid filename
 
 ## Future Goals
 
@@ -65,9 +67,13 @@ Deck Component
 
 
 ### All decks
-- [ ] Load deck
-  - [ ] loading a deck sets owner and character
 - [ ] Save new deck
+  - [ ] pick file name
+- [ ] Perks
+  - open dialogue with perk checklist
+  - checkboxes check when adding perks
+  - 'apply' locks in checkboxes
+  - cancel/close closes box without 'applying'
 
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn

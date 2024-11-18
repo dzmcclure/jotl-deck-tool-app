@@ -1,12 +1,12 @@
-import {CommonModule} from '@angular/common';
-import {Component, ViewContainerRef} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {RouterOutlet} from '@angular/router';
-import {NewViewComponent} from './new-view/new-view.component';
-import {DeckComponent} from './components/deck/deck.component';
-import {BaseMonsterModifierDeck} from './constants/decks';
+import { CommonModule } from '@angular/common';
+import { Component, ViewContainerRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
+import { NewViewComponent } from './new-view/new-view.component';
+import { DeckComponent } from './components/deck/deck.component';
+import { BaseMonsterModifierDeck } from './constants/decks';
 import _ from 'lodash';
-import {Deck} from './models/deck';
+import { Deck } from './models/deck';
 
 interface CharacterClassList {
   demolitionist: boolean;
@@ -37,12 +37,13 @@ export class AppComponent {
   monsterDeck = _.clone(BaseMonsterModifierDeck);
   playerCount = 0;
   selectedClass = '';
-  loadedClasses: CharacterClassList = {
-    demolitionist: false,
-    hatchet: false,
-    redGuard: false,
-    voidwarden: false,
-  };
+  loadedClasses: Map<string, boolean> = new Map(
+    [
+      ['demolitionist', false],
+      ['hatchet', false],
+      ['redGuard', false],
+      ['voidwarden', false],
+    ]);
   loadedDeck: Deck | null = null;
 
   constructor(private viewContainer: ViewContainerRef) {
@@ -62,8 +63,8 @@ export class AppComponent {
   // - Other high-level app info
   //   - version
 
-  public selectClass(characterClass: keyof CharacterClassList): void {
-    this.selectedClass = !this.loadedClasses[characterClass] ? characterClass : '';
+  public selectClass(characterClass: string): void {
+    this.selectedClass = !this.loadedClasses.get(characterClass) ? characterClass : '';
   }
 
   public addPlayer(): void {
@@ -72,10 +73,11 @@ export class AppComponent {
       this.addPlayerDialogVisible = true;
       this.playerCount++;
       const newDeckComponent = this.viewContainer.createComponent(DeckComponent);
-      newDeckComponent.instance.baseDeck = _.clone(BaseMonsterModifierDeck);
 
+      newDeckComponent.instance.baseDeck = this.loadedDeck?.deck ?? _.clone(BaseMonsterModifierDeck);
       newDeckComponent.instance.owner = this.selectedClass;
-      this.loadedClasses[this.selectedClass as keyof CharacterClassList] = true;
+      newDeckComponent.instance.perks = this.loadedDeck?.perks ?? [];
+      this.loadedClasses.set(this.selectedClass, true);
       this.selectedClass = '';
     }
   }
@@ -83,7 +85,7 @@ export class AppComponent {
   public async loadDeck(event: any): Promise<void> {
     console.log('loading a deck:');
     this.loadedDeck = JSON.parse(await event.target.files[0].text());
-    // TODO: Load file into a deck thing, set class, figure out perks
-    // TODO: How do we tell this is a valid JSON deck file?
+    console.log(this.loadedDeck);
+    this.selectClass(this.loadedDeck!.class);
   }
 }
