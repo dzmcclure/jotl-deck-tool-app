@@ -31,6 +31,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - [x] Cannot add/load multiple of the same character
 - [x] Load finished
 - [x] Able to save a file - guid filename
+- [x] Open dialogue with perk checklist
+- [x] Perk utility function
+- [x] Perk model and definitions
 
 ## Future Goals
 
@@ -70,10 +73,10 @@ Deck Component
 - [ ] Save new deck
   - [ ] pick file name
 - [ ] Perks
-  - open dialogue with perk checklist
-  - checkboxes check when adding perks
-  - 'apply' locks in checkboxes
-  - cancel/close closes box without 'applying'
+  - [ ] checkboxes check when adding perks
+  - [ ] 'apply' locks in checkboxes
+  - [ ] cancel/close closes box without 'applying'
+  - [ ] dynamic perk lists based on character class
 
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewContainerRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { NewViewComponent } from './new-view/new-view.component';
 import { DeckComponent } from './components/deck/deck.component';
 import { BaseMonsterModifierDeck } from './constants/decks';
 import _ from 'lodash';
@@ -22,7 +21,6 @@ interface CharacterClassList {
     CommonModule,
     FormsModule,
     RouterOutlet,
-    NewViewComponent,
     DeckComponent,
   ],
   templateUrl: './app.component.html',

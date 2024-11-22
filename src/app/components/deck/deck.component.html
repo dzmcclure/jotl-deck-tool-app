@@ -50,7 +50,7 @@
 <!--Other Buttons-->
 <button (click)="drawCard(1)">Draw a card</button>
 <button (click)="drawCard(2)">Draw two cards</button>
-@if(owner !== 'monster')
+@if(owner !== 'monster' && owner === 'demolitionist')
 {
   <button (click)="pickPerk()">Perks</button>
   <button (click)="saveDeck()">Save</button>
@@ -88,3 +88,16 @@
     </div>
   </div>
 </dialog>
+@if(perksFormVisible) {
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <!-- our form array of checkboxes will go here -->
+    @for(control of perkFormArray.controls; track $index) {
+      <label formArrayName="perks">
+        <input type="checkbox" [formControlName]="$index">
+        {{availablePerks[$index].perkId}}
+      </label>
+    }
+    <button>submit</button>
+  </form>
+}
