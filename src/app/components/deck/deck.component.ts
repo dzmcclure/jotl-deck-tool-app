@@ -97,7 +97,7 @@ export class DeckComponent implements OnInit {
       case 'hatchet':
         characterPerks = _.cloneDeep(perkList.HatchetPerks);
         break;
-      case 'redguard':
+      case 'redGuard':
         characterPerks = _.cloneDeep(perkList.RedguardPerks);
         break;
       case 'voidwarden':
