@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
+To get all images run `npm run copy:assets` from the src directory
 
 ## Completed Milestones
 
@@ -34,6 +34,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - [x] Open dialogue with perk checklist
 - [x] Perk utility function
 - [x] Perk model and definitions
+- [x] Checkboxes check when adding perks
+- [x] Dynamic perk lists based on character class
+- [x] Perks save correctly
 
 ## Future Goals
 
@@ -73,12 +76,10 @@ Deck Component
 - [ ] Save new deck
   - [ ] pick file name
 - [ ] Perks
-  - [ ] checkboxes check when adding perks
   - [ ] 'apply' locks in checkboxes
   - [ ] cancel/close closes box without 'applying'
-  - [ ] dynamic perk lists based on character class
+  - [ ] perk data entry
 
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn
-- [ ] OnChange functions?
 - [ ] jotl submodule does not have base modifier decks for players

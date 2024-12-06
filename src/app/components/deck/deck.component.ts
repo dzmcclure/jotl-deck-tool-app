@@ -6,12 +6,11 @@ import _ from 'lodash';
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { BlurseDecks } from '../../service/deck.service';
 import { monsterIcon, playerIcons } from '../../constants/variables';
-import {choosePerk} from "../../service/perk.service";
-import {Deck} from "../../models/deck";
-import {PERKS} from "../../constants/perks";
-import {DemolitionistPerks} from "../../constants/perks/demolitionist-perks";
-import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {CardChanges} from "../../models/perk";
+import { choosePerk } from "../../service/perk.service";
+import { Deck } from "../../models/deck";
+import * as perkList from "../../constants/perks";
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { CardChanges } from "../../models/perk";
 
 interface PerkChecklist extends CardChanges {
   perkId: string;
@@ -67,30 +66,54 @@ export class DeckComponent implements OnInit {
   }
 
   public constructor(public blurseDeckService: BlurseDecks,
-                     private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       perks: new FormArray([]),
     });
   }
 
   ngOnInit(): void {
-    console.log(this.owner);
-    console.log(this.baseDeck);
+    console.log('owner: ', this.owner);
+    console.log('starting deck: ', this.baseDeck);
     this.iconSrc = playerIcons[this.owner] ?? monsterIcon;
-    Object.entries(DemolitionistPerks).map((perk) => {
+
+    this.initPerks();
+    this.resetDeck();
+    this.calculateDeckShadow();
+    // form init
+    this.availablePerks.forEach((availablePerk) => {
+      this.perkFormArray.push(new FormControl(_.includes(this.perks, availablePerk.perkId)))
+    });
+  }
+
+  private initPerks(): void {
+
+    let characterPerks: Record<string, CardChanges> = {};
+
+    switch (this.owner) {
+      case 'demolitionist':
+        characterPerks = _.cloneDeep(perkList.DemolitionistPerks);
+        break;
+      case 'hatchet':
+        characterPerks = _.cloneDeep(perkList.HatchetPerks);
+        break;
+      case 'redguard':
+        characterPerks = _.cloneDeep(perkList.RedguardPerks);
+        break;
+      case 'voidwarden':
+        characterPerks = _.cloneDeep(perkList.VoidwardenPerks);
+        break;
+    }
+
+    Object.entries(characterPerks).map((perk) => {
       this.availablePerks.push({
         ...perk[1],
         perkId: perk[0],
       });
     });
-    console.log(this.availablePerks);
-    this.resetDeck();
-    this.calculateDeckShadow();
+    console.log('Available Perks: ', this.availablePerks);
 
-    // form init
-    this.availablePerks.forEach(()=>this.perkFormArray.push(new FormControl(false)));
-    // this.form.controls;
-    console.log(this.perkFormArray);
+    
   }
 
   submit() {
@@ -99,22 +122,27 @@ export class DeckComponent implements OnInit {
       this.form.value.perks
         .map((value: any, index: any) => value ? this.availablePerks[index].perkId : null)
         .filter((value: any) => value !== null);
-    console.log(selectedPerkIds);
+    console.log('selected perks ', selectedPerkIds);
     let tempDeck: Deck = {
       class: this.owner,
       deck: this.baseDeck,
-      perks: this.perks,
+      perks: [],
     };
+
+    console.log('tempDeck before changes', tempDeck);
+
     selectedPerkIds.forEach((id: any) => {
       tempDeck = choosePerk(tempDeck, id);
     });
+
+    console.log('tempDeck after changes',tempDeck);
 
     this.baseDeck = tempDeck.deck; // clone deep? DEEEEEP?
     this.perks = tempDeck.perks;
     this.resetDeck();
     this.calculateDeckShadow();
-    console.log(this.baseDeck);
-    console.log(this.perks);
+    console.log('changed base deck ', this.baseDeck);
+    console.log('changed perks ', this.perks);
   }
 
   public addBlessToModifierDeck(): void {
@@ -127,7 +155,6 @@ export class DeckComponent implements OnInit {
 
     this.calculateDeckShadow();
     this.shuffle();
-    console.log(this.drawPile);
   }
 
   public addCurseToModifierDeck(): void {
@@ -140,7 +167,6 @@ export class DeckComponent implements OnInit {
 
     this.calculateDeckShadow();
     this.shuffle();
-    console.log(this.drawPile);
   }
 
   public spendBless(card?: Card): void {
@@ -179,7 +205,6 @@ export class DeckComponent implements OnInit {
     this.calculateDeckShadow();
     this.shuffle();
     this.shuffleCardDrawn = false;
-    console.log(this.drawPile);
   }
 
   public drawCard(numberDrawn: number = 1): void {
@@ -203,7 +228,6 @@ export class DeckComponent implements OnInit {
             this.shuffleCardDrawn = true;
           }
         }
-        console.log(this.discardPile);
       } else {
         console.log('No cards left to draw!!!');
       }

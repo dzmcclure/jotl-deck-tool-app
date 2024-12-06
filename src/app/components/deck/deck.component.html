@@ -50,7 +50,7 @@
 <!--Other Buttons-->
 <button (click)="drawCard(1)">Draw a card</button>
 <button (click)="drawCard(2)">Draw two cards</button>
-@if(owner !== 'monster' && owner === 'demolitionist')
+@if(owner !== 'monster')
 {
   <button (click)="pickPerk()">Perks</button>
   <button (click)="saveDeck()">Save</button>
