@@ -5,10 +5,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
 To get all images run `npm run copy:assets` from the src directory
 
 ## Completed Milestones
 
+#### Monster Deck
 - [x] Card details
 - [x] Drawing cards
 - [x] Shuffle deck (normal shuffle)
@@ -26,15 +28,17 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] Remove ALL Bless/Curse cards
 - [x] Restore Bless and Curse decks to base
 - [x] Move blurse cards out of deck and into store
+#### Player Decks
 - [x] Add icons for player symbols
 - [x] Add player section/button
 - [x] Cannot add/load multiple of the same character
 - [x] Load finished
 - [x] Able to save a file - guid filename
+#### Perks
 - [x] Open dialogue with perk checklist
 - [x] Perk utility function
 - [x] Perk model and definitions
-- [x] Checkboxes check when adding perks
+- [x] Checkboxes check when adding/loading perks
 - [x] Dynamic perk lists based on character class
 - [x] Perks save correctly
 
@@ -78,7 +82,6 @@ Deck Component
 - [ ] Perks
   - [ ] 'apply' locks in checkboxes
   - [ ] cancel/close closes box without 'applying'
-  - [ ] perk data entry
 
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn
