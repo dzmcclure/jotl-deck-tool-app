@@ -41,6 +41,8 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] Checkboxes check when adding/loading perks
 - [x] Dynamic perk lists based on character class
 - [x] Perks save correctly
+- [x] Submit button locks in checkboxes
+- [x] Cancel button closes box without 'applying'
 
 ## Future Goals
 
@@ -80,8 +82,8 @@ Deck Component
 - [ ] Save new deck
   - [ ] pick file name
 - [ ] Perks
-  - [ ] 'apply' locks in checkboxes
-  - [ ] cancel/close closes box without 'applying'
+  - [ ] modal
+  - [ ] descriptions
 
 ### Misc/To Be Sorted
 - [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn

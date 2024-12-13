@@ -6,15 +6,10 @@ import _ from 'lodash';
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { BlurseDecks } from '../../service/deck.service';
 import { monsterIcon, playerIcons } from '../../constants/variables';
-import { choosePerk } from "../../service/perk.service";
-import { Deck } from "../../models/deck";
-import * as perkList from "../../constants/perks";
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { CardChanges } from "../../models/perk";
-
-interface PerkChecklist extends CardChanges {
-  perkId: string;
-}
+import { choosePerk } from '../../service/perk.service';
+import { Deck } from '../../models/deck';
+import { PerksListComponent } from '../perks-list/perks-list.component';
+import { BaseMonsterCurseDeck, BasePlayerBlessDeck } from "../../constants/decks";
 
 @Component({
   selector: 'app-deck',
@@ -23,7 +18,7 @@ interface PerkChecklist extends CardChanges {
     CardComponent,
     NgOptimizedImage,
     NgClass,
-    ReactiveFormsModule,
+    PerksListComponent,
   ],
   templateUrl: './deck.component.html',
   styleUrl: './deck.component.css'
@@ -37,19 +32,6 @@ export class DeckComponent implements OnInit {
   @Input({ required: true }) owner!: string;
   @Input() perks: string[] = [];
   iconSrc: string = '';
-  // ✓ count of remaining cards
-  // ✓ shuffle
-  // ✓ draw a card
-  //   - if card says to draw again, draw again -- NOT IN JOTL
-  //   - if card says to shuffle, shuffle (at end of round)
-  //     - shuffle discard pile into draw pile
-  //     ✓ visual indicator this has to happen (shuffle button border change)
-  // ✓ cards can be added
-  //   ✓ shuffle when a card is added
-  //   ✓ independent method for monster curse
-  // ✓ cards can be removed
-  //   - todo: some cards remove themselves
-  // ✓ end of encounter 'reset'
 
   // Draw/Discard Piles
   drawPile: Card[] = [];
@@ -57,19 +39,10 @@ export class DeckComponent implements OnInit {
   drawnCards: Card[] = [];
 
   // form
-  form: FormGroup;
-  availablePerks: PerkChecklist[] = [];
   perksFormVisible = false;
 
-  get perkFormArray() {
-    return this.form.controls['perks'] as FormArray;
-  }
-
-  public constructor(public blurseDeckService: BlurseDecks,
-    private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({
-      perks: new FormArray([]),
-    });
+  public constructor(public blurseDeckService: BlurseDecks) {
+    // Intentionally left blank
   }
 
   ngOnInit(): void {
@@ -80,69 +53,11 @@ export class DeckComponent implements OnInit {
     this.initPerks();
     this.resetDeck();
     this.calculateDeckShadow();
-    // form init
-    this.availablePerks.forEach((availablePerk) => {
-      this.perkFormArray.push(new FormControl(_.includes(this.perks, availablePerk.perkId)))
-    });
   }
 
   private initPerks(): void {
 
-    let characterPerks: Record<string, CardChanges> = {};
 
-    switch (this.owner) {
-      case 'demolitionist':
-        characterPerks = _.cloneDeep(perkList.DemolitionistPerks);
-        break;
-      case 'hatchet':
-        characterPerks = _.cloneDeep(perkList.HatchetPerks);
-        break;
-      case 'redGuard':
-        characterPerks = _.cloneDeep(perkList.RedguardPerks);
-        break;
-      case 'voidwarden':
-        characterPerks = _.cloneDeep(perkList.VoidwardenPerks);
-        break;
-    }
-
-    Object.entries(characterPerks).map((perk) => {
-      this.availablePerks.push({
-        ...perk[1],
-        perkId: perk[0],
-      });
-    });
-    console.log('Available Perks: ', this.availablePerks);
-
-    
-  }
-
-  submit() {
-    console.log('submit');
-    const selectedPerkIds =
-      this.form.value.perks
-        .map((value: any, index: any) => value ? this.availablePerks[index].perkId : null)
-        .filter((value: any) => value !== null);
-    console.log('selected perks ', selectedPerkIds);
-    let tempDeck: Deck = {
-      class: this.owner,
-      deck: this.baseDeck,
-      perks: [],
-    };
-
-    console.log('tempDeck before changes', tempDeck);
-
-    selectedPerkIds.forEach((id: any) => {
-      tempDeck = choosePerk(tempDeck, id);
-    });
-
-    console.log('tempDeck after changes',tempDeck);
-
-    this.baseDeck = tempDeck.deck; // clone deep? DEEEEEP?
-    this.perks = tempDeck.perks;
-    this.resetDeck();
-    this.calculateDeckShadow();
-    console.log('changed base deck ', this.baseDeck);
-    console.log('changed perks ', this.perks);
   }
 
   public addBlessToModifierDeck(): void {
@@ -182,9 +97,9 @@ export class DeckComponent implements OnInit {
   public resetDeck(): void {
     this.drawnCards = [];
     this.drawPile.forEach((card) => {
-      if (card.description.includes('Bless')) {
+      if (_.includes(BasePlayerBlessDeck, card)) {
         this.spendBless(card);
-      } else if (card.description.includes('Curse')) {
+      } else if (_.includes(BaseMonsterCurseDeck, card)) {
         this.spendCurse(card);
       }
     });
@@ -214,10 +129,10 @@ export class DeckComponent implements OnInit {
         const drawnCard: Card | undefined = this.drawPile.pop();
         if (drawnCard) {
           this.drawnCards.push(drawnCard);
-          if (drawnCard.description.includes('Bless')) {
+          if (_.includes(BasePlayerBlessDeck, drawnCard)) {
             console.log('Bless Card Drawn!')
             this.spendBless(drawnCard);
-          } else if (drawnCard.description.includes('Curse')) {
+          } else if (_.includes(BaseMonsterCurseDeck, drawnCard)) {
             console.log('Curse Card Drawn!')
             this.spendCurse(drawnCard);
           } else {
@@ -238,7 +153,37 @@ export class DeckComponent implements OnInit {
 
   public pickPerk(): void {
     this.perksFormVisible = true;
+  }
 
+  public applySelectedPerks(event: any): void {
+    this.perksFormVisible = false;
+    console.log('total selected perks: ', event);
+    if(event !== undefined) {
+      const selectedPerkIds = _.difference(event, this.perks);
+      console.log('newly selected perks: ', selectedPerkIds);
+
+      this.perks = event;
+      console.log('changed perks: ', this.perks);
+
+      let tempDeck: Deck = {
+        class: this.owner,
+        deck: this.baseDeck,
+        perks: [],
+      };
+
+      console.log('tempDeck before changes', tempDeck);
+
+      selectedPerkIds.forEach((id: any) => {
+        tempDeck = choosePerk(tempDeck, id);
+      });
+
+      console.log('tempDeck after changes',tempDeck);
+
+      this.baseDeck = tempDeck.deck;
+      this.resetDeck();
+      this.calculateDeckShadow();
+      console.log('changed base deck ', this.baseDeck);
+    }
   }
 
   public saveDeck(): void {
@@ -247,12 +192,11 @@ export class DeckComponent implements OnInit {
       deck: this.baseDeck,
       perks: this.perks,
     });
-    const playerBlob = new Blob([playerInfo], { type: "application/octet-stream" });
+    const playerBlob = new Blob([playerInfo], { type: 'application/octet-stream' });
 
     const url = window.URL.createObjectURL(playerBlob);
     window.open(url);
   }
-
 
   private calculateDeckShadow(): void {
     const deckRemainder = this.drawPile.length / 4;

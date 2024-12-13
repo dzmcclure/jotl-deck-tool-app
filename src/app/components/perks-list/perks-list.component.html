@@ -1,0 +1,11 @@
+<p>perks-list works!</p>
+<form [formGroup]="form">
+  @for(control of perkFormArray.controls; track $index) {
+    <label formArrayName="perks">
+      <input type="checkbox" [formControlName]="$index">
+      {{availablePerks[$index].perkId}}
+    </label>
+  }
+</form>
+<button (click)="submit()">Submit</button>
+<button (click)="cancel()">Cancel</button>

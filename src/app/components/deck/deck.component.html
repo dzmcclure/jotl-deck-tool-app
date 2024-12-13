@@ -89,15 +89,15 @@
   </div>
 </dialog>
 @if(perksFormVisible) {
-
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <!-- our form array of checkboxes will go here -->
-    @for(control of perkFormArray.controls; track $index) {
-      <label formArrayName="perks">
-        <input type="checkbox" [formControlName]="$index">
-        {{availablePerks[$index].perkId}}
-      </label>
-    }
-    <button>submit</button>
-  </form>
+  <app-perks-list [perks]="perks" [owner]="owner" (selectedPerks)="applySelectedPerks($event)"></app-perks-list>
+<!--  <form [formGroup]="form" (ngSubmit)="submit()">-->
+<!--    &lt;!&ndash; our form array of checkboxes will go here &ndash;&gt;-->
+<!--    @for(control of perkFormArray.controls; track $index) {-->
+<!--      <label formArrayName="perks">-->
+<!--        <input type="checkbox" [formControlName]="$index">-->
+<!--        {{availablePerks[$index].perkId}}-->
+<!--      </label>-->
+<!--    }-->
+<!--    <button>submit</button>-->
+<!--  </form>-->
 }
