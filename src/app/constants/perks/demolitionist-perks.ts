@@ -2,22 +2,27 @@ import {CardChanges} from "../../models/perk";
 
 export const DemolitionistPerks: Record<string, CardChanges> = {
   'de-01': {
+    desc: 'remove 4 +0',
     addCards: [],
     removeCards: ['jl-am-m-01', 'jl-am-m-02', 'jl-am-m-03', 'jl-am-m-04'],
   },
   'de-02': {
+    desc: 'remove 2 -1',
     addCards: [],
     removeCards: ['jl-am-m-12', 'jl-am-m-13'],
   },
   'de-03': {
+    desc: 'remove 2 -1',
     addCards: [],
     removeCards: ['jl-am-m-14', 'jl-am-m-15'],
   },
   'de-04': {
+    desc: 'remove -2 & +1',
     addCards: [],
     removeCards: ['jl-am-m-17', 'jl-am-m-07'],
   },
   'de-05': {
+    desc: 'replace +0 with +2 Muddle',
     addCards: [{
       id: "jl-am-de-01",
       description: "+2 - Inflict Muddle",
@@ -26,6 +31,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-05'],
   },
   'de-06': {
+    desc: 'replace +0 with +2 Muddle',
     addCards: [{
       id: "jl-am-de-02",
       description: "+2 - Inflict Muddle",
@@ -34,6 +40,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-06'],
   },
   'de-07': {
+    desc: 'replace -1 with +0 Poison',
     addCards: [{
       id: "jl-am-de-03",
       description: "+0 - Inflict Poison",
@@ -42,6 +49,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-16'],
   },
   'de-08': {
+    desc: "add +2",
     addCards: [{
       id: "jl-am-de-04",
       description: "+2",
@@ -50,6 +58,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'de-09': {
+    desc: "add +2",
     addCards: [{
       id: "jl-am-de-05",
       description: "+2",
@@ -58,6 +67,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'de-10': {
+    desc: "replace +1 with +2 Nature",
     addCards: [{
       id: "jl-am-de-06",
       description: "+2 - Infuse Nature",
@@ -66,6 +76,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-08'],
   },
   'de-11': {
+    desc: "replace +1 with +2 Nature",
     addCards: [{
       id: "jl-am-de-07",
       description: "+2 - Infuse Nature",
@@ -74,6 +85,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-09'],
   },
   'de-12': {
+    desc: "replace +1 with +2 Fire",
     addCards: [{
       id: "jl-am-de-08",
       description: "+2 - Infuse Fire",
@@ -82,6 +94,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-10'],
   },
   'de-13': {
+    desc: "replace +1 with +2 Fire",
     addCards: [{
       id: "jl-am-de-09",
       description: "+2 - Infuse Fire",
@@ -90,6 +103,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-11'],
   },
   'de-14': {
+    desc: "add +0 all adj enemy suffer 1 damage",
     addCards: [{
       id: "jl-am-de-10",
       description: "+0 - All adjacent enemies suffer 1 damage",
@@ -98,6 +112,7 @@ export const DemolitionistPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'de-15': {
+    desc: "add +0 all adj enemy suffer 1 damage",
     addCards: [{
       id: "jl-am-de-11",
       description: "+0 - All adjacent enemies suffer 1 damage",

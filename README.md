@@ -43,6 +43,8 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] Perks save correctly
 - [x] Submit button locks in checkboxes
 - [x] Cancel button closes box without 'applying'
+- [x] modal
+- [x] descriptions
 
 ## Future Goals
 
@@ -81,10 +83,7 @@ Deck Component
 ### All decks
 - [ ] Save new deck
   - [ ] pick file name
-- [ ] Perks
-  - [ ] modal
-  - [ ] descriptions
 
 ### Misc/To Be Sorted
-- [ ] Monster Modifier - Shuffle at end of round if shuffle card drawn
+- [ ] End of round button - Shuffle all decks that drew shuffle cards during the round
 - [ ] jotl submodule does not have base modifier decks for players

@@ -33,7 +33,7 @@
     <div style="display: flex; justify-content: center; padding: 4px;">Cards left:</div>
     <div style="display: flex; justify-content: center; padding: 4px;">{{drawPile.length}}</div>
   </div>
-  <button (click)="myDialog.show()" title="Show Discard Pile">Discard Pile: {{discardPile.length}}</button>
+  <button (click)="discardModal.showModal()" title="Show Discard Pile">Discard Pile: {{discardPile.length}}</button>
   <div class="remaining-blurses">
     <div>
       <img class="image-remaining-blurses" alt="Remaining Curse Cards " src="assets/icons/curse.png" />
@@ -52,7 +52,7 @@
 <button (click)="drawCard(2)">Draw two cards</button>
 @if(owner !== 'monster')
 {
-  <button (click)="pickPerk()">Perks</button>
+  <button (click)="showPerks()">Perks</button>
   <button (click)="saveDeck()">Save</button>
 }
 
@@ -66,9 +66,10 @@
   }
 </div>
 <!--Discard card modal and functionality-->
-<dialog #myDialog class="discard-modal" (click)="myDialog.close()">
+<dialog #discardModal class="discard-modal">
+  <span class="modal-mask" (click)="discardModal.close()"></span>
   <div class="discard-modal-info">
-    <button (click)="myDialog.close()"
+    <button (click)="discardModal.close()"
             class="modal-close-button"
             title="Show Discard Pile">X</button>
     <div class="discard-card-container">
@@ -89,15 +90,15 @@
   </div>
 </dialog>
 @if(perksFormVisible) {
-  <app-perks-list [perks]="perks" [owner]="owner" (selectedPerks)="applySelectedPerks($event)"></app-perks-list>
-<!--  <form [formGroup]="form" (ngSubmit)="submit()">-->
-<!--    &lt;!&ndash; our form array of checkboxes will go here &ndash;&gt;-->
-<!--    @for(control of perkFormArray.controls; track $index) {-->
-<!--      <label formArrayName="perks">-->
-<!--        <input type="checkbox" [formControlName]="$index">-->
-<!--        {{availablePerks[$index].perkId}}-->
-<!--      </label>-->
-<!--    }-->
-<!--    <button>submit</button>-->
-<!--  </form>-->
+  <div class="perks-modal">
+    <span class="modal-mask" (click)="closePerks()"></span>
+    <div class="perks-modal-info">
+      <button (click)="closePerks()"
+              class="modal-close-button"
+              title="Show Discard Pile">X</button>
+      <div class="perks-card-container">
+        <app-perks-list [perks]="perks" [owner]="owner" (selectedPerks)="applySelectedPerks($event)"></app-perks-list>
+      </div>
+    </div>
+  </div>
 }

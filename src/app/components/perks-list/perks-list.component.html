@@ -1,9 +1,11 @@
-<p>perks-list works!</p>
 <form [formGroup]="form">
   @for(control of perkFormArray.controls; track $index) {
     <label formArrayName="perks">
       <input type="checkbox" [formControlName]="$index">
-      {{availablePerks[$index].perkId}}
+      @if($index === availablePerks.length - 1 || availablePerks[$index].desc !== availablePerks[$index+1].desc) {
+        {{availablePerks[$index].desc}}
+        <br>
+      }
     </label>
   }
 </form>

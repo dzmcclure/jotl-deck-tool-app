@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { ModifierCardBack } from '../../constants/cards/modifier-card-back';
 import { CardComponent } from '../card/card.component';
 import { Card } from '../../models/card';
@@ -40,6 +40,7 @@ export class DeckComponent implements OnInit {
 
   // form
   perksFormVisible = false;
+  @ViewChild("perksModal") perksModalRef: ElementRef | undefined;
 
   public constructor(public blurseDeckService: BlurseDecks) {
     // Intentionally left blank
@@ -151,12 +152,17 @@ export class DeckComponent implements OnInit {
     this.calculateDeckShadow();
   }
 
-  public pickPerk(): void {
+  public showPerks(): void {
     this.perksFormVisible = true;
   }
 
-  public applySelectedPerks(event: any): void {
+  public closePerks(): void {
     this.perksFormVisible = false;
+  }
+
+  public applySelectedPerks(event: any): void {
+    this.closePerks();
+
     console.log('total selected perks: ', event);
     if(event !== undefined) {
       const selectedPerkIds = _.difference(event, this.perks);
