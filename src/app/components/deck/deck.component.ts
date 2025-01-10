@@ -1,15 +1,16 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import { ModifierCardBack } from '../../constants/cards/modifier-card-back';
-import { CardComponent } from '../card/card.component';
-import { Card } from '../../models/card';
+import {ModifierCardBack} from '../../constants/cards/modifier-card-back';
+import {CardComponent} from '../card/card.component';
+import {Card} from '../../models/card';
 import _ from 'lodash';
-import { NgClass, NgOptimizedImage } from '@angular/common';
-import { BlurseDecks } from '../../service/deck.service';
-import { monsterIcon, playerIcons } from '../../constants/variables';
-import { choosePerk } from '../../service/perk.service';
-import { Deck } from '../../models/deck';
-import { PerksListComponent } from '../perks-list/perks-list.component';
-import { BaseMonsterCurseDeck, BasePlayerBlessDeck } from "../../constants/decks";
+import {NgClass, NgOptimizedImage} from '@angular/common';
+import {BlurseDecks} from '../../service/blurse.service';
+import {ShuffleDecks} from '../../service/shuffle.service';
+import {monsterIcon, playerIcons} from '../../constants/variables';
+import {choosePerk} from '../../service/perk.service';
+import {Deck} from '../../models/deck';
+import {PerksListComponent} from '../perks-list/perks-list.component';
+import {BaseMonsterCurseDeck, BasePlayerBlessDeck} from '../../constants/decks';
 
 @Component({
   selector: 'app-deck',
@@ -25,12 +26,13 @@ import { BaseMonsterCurseDeck, BasePlayerBlessDeck } from "../../constants/decks
 })
 
 export class DeckComponent implements OnInit {
+  @Input({required: true}) baseDeck: Card[] = [];
+  @Input({required: true}) owner!: string;
+  @Input() perks: string[] = [];
   cardBackImage: string = ModifierCardBack.image;
+
   deckRemainderSizeStyle = '';
   shuffleCardDrawn = false;
-  @Input({ required: true }) baseDeck: Card[] = [];
-  @Input({ required: true }) owner!: string;
-  @Input() perks: string[] = [];
   iconSrc: string = '';
 
   // Draw/Discard Piles
@@ -42,23 +44,16 @@ export class DeckComponent implements OnInit {
   perksFormVisible = false;
   @ViewChild("perksModal") perksModalRef: ElementRef | undefined;
 
-  public constructor(public blurseDeckService: BlurseDecks) {
+  public constructor(public blurseDeckService: BlurseDecks,
+                     public shuffleDeckService: ShuffleDecks) {
     // Intentionally left blank
   }
 
   ngOnInit(): void {
-    console.log('owner: ', this.owner);
-    console.log('starting deck: ', this.baseDeck);
     this.iconSrc = playerIcons[this.owner] ?? monsterIcon;
 
-    this.initPerks();
     this.resetDeck();
     this.calculateDeckShadow();
-  }
-
-  private initPerks(): void {
-
-
   }
 
   public addBlessToModifierDeck(): void {
@@ -142,6 +137,7 @@ export class DeckComponent implements OnInit {
 
           if (drawnCard.reshuffle) {
             this.shuffleCardDrawn = true;
+            this.shuffleDeckService.shuffleCardDrawnSignal.set(this.shuffleCardDrawn);
           }
         }
       } else {
@@ -163,13 +159,10 @@ export class DeckComponent implements OnInit {
   public applySelectedPerks(event: any): void {
     this.closePerks();
 
-    console.log('total selected perks: ', event);
-    if(event !== undefined) {
+    if (event !== undefined) {
       const selectedPerkIds = _.difference(event, this.perks);
-      console.log('newly selected perks: ', selectedPerkIds);
 
       this.perks = event;
-      console.log('changed perks: ', this.perks);
 
       let tempDeck: Deck = {
         class: this.owner,
@@ -177,18 +170,13 @@ export class DeckComponent implements OnInit {
         perks: [],
       };
 
-      console.log('tempDeck before changes', tempDeck);
-
       selectedPerkIds.forEach((id: any) => {
         tempDeck = choosePerk(tempDeck, id);
       });
 
-      console.log('tempDeck after changes',tempDeck);
-
       this.baseDeck = tempDeck.deck;
       this.resetDeck();
       this.calculateDeckShadow();
-      console.log('changed base deck ', this.baseDeck);
     }
   }
 
@@ -198,10 +186,17 @@ export class DeckComponent implements OnInit {
       deck: this.baseDeck,
       perks: this.perks,
     });
-    const playerBlob = new Blob([playerInfo], { type: 'application/octet-stream' });
+    const playerBlob = new Blob([playerInfo], {type: 'application/octet-stream'});
 
     const url = window.URL.createObjectURL(playerBlob);
     window.open(url);
+  }
+
+  public endOfRound(): void {
+    console.log(`**End of round called for ${this.owner}**`);
+    if (this.shuffleCardDrawn) {
+      this.returnDiscardsToDeck();
+    }
   }
 
   private calculateDeckShadow(): void {

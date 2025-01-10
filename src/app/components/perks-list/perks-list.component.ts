@@ -59,10 +59,7 @@ export class PerksListComponent implements OnInit {
         perkId: perk[0],
       });
     });
-    console.log('Available Perks: ', this.availablePerks);
-    // form init
-    console.log(this.availablePerks);
-    console.log(this.perks);
+
     this.availablePerks.forEach((availablePerk) => {
       const perkSelected = _.includes(this.perks, availablePerk.perkId);
       const formData = {
@@ -74,7 +71,6 @@ export class PerksListComponent implements OnInit {
   }
 
   submit() {
-    console.log('submit');
     this.form.controls['perks'].enable();
     const selectedPerkIds =
       this.form.value.perks

@@ -9,6 +9,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 To get all images run `npm run copy:assets` from the src directory
 
 ## Completed Milestones
+- [x] End of round button - Shuffle all decks that drew shuffle cards during the round
 
 #### Monster Deck
 - [x] Card details
@@ -34,6 +35,7 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] Cannot add/load multiple of the same character
 - [x] Load finished
 - [x] Able to save a file - guid filename
+- [x] Bug fix - Selecting a base class and loading a file are mutually exclusive
 #### Perks
 - [x] Open dialogue with perk checklist
 - [x] Perk utility function
@@ -82,8 +84,7 @@ Deck Component
 
 ### All decks
 - [ ] Save new deck
-  - [ ] pick file name
+  - [ ] pick file name - for windows/browser
 
 ### Misc/To Be Sorted
-- [ ] End of round button - Shuffle all decks that drew shuffle cards during the round
 - [ ] jotl submodule does not have base modifier decks for players

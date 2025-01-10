@@ -1,17 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { Component, ViewContainerRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
-import { DeckComponent } from './components/deck/deck.component';
-import { BaseMonsterModifierDeck } from './constants/decks';
+import {CommonModule} from '@angular/common';
+import {
+  Component,
+  ComponentRef,
+  effect,
+  ElementRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {RouterOutlet} from '@angular/router';
+import {DeckComponent} from './components/deck/deck.component';
+import {BaseMonsterModifierDeck} from './constants/decks';
 import _ from 'lodash';
-import { Deck } from './models/deck';
+import {Deck} from './models/deck';
+import {ShuffleDecks} from './service/shuffle.service';
 
-interface CharacterClassList {
-  demolitionist: boolean;
-  hatchet: boolean;
-  redGuard: boolean;
-  voidwarden: boolean;
+interface loadedDeckData {
+  componentRef: ComponentRef<DeckComponent> | null;
+  loaded: boolean;
 }
 
 @Component({
@@ -28,24 +34,33 @@ interface CharacterClassList {
 })
 
 export class AppComponent {
+  @ViewChild('loadedClass') loadedClassInput!: ElementRef;
+  @ViewChild('monsterDeckComponent') monsterDeckComponent!: DeckComponent;
+
   title: string = 'jotl-deck-app';
   version: string = 'v0.2';
 
   addPlayerDialogVisible = false;
+  shuffleCardDrawnGlobally = false;
   monsterDeck = _.clone(BaseMonsterModifierDeck);
   playerCount = 0;
   selectedClass = '';
-  loadedClasses: Map<string, boolean> = new Map(
+  loadedClasses: Map<string, loadedDeckData> = new Map(
     [
-      ['demolitionist', false],
-      ['hatchet', false],
-      ['redGuard', false],
-      ['voidwarden', false],
+      ['demolitionist', {componentRef: null, loaded: false}],
+      ['hatchet', {componentRef: null, loaded: false}],
+      ['redGuard', {componentRef: null, loaded: false}],
+      ['voidwarden', {componentRef: null, loaded: false}],
     ]);
   loadedDeck: Deck | null = null;
 
-  constructor(private viewContainer: ViewContainerRef) {
+  constructor(private viewContainer: ViewContainerRef,
+              public shuffleDeckService: ShuffleDecks) {
     // Intentionally left blank
+    effect(() => {
+      console.log(`The status is: ${shuffleDeckService.shuffleCardDrawnSignal()}`);
+      this.shuffleCardDrawnGlobally = shuffleDeckService.shuffleCardDrawnSignal();
+    });
   }
   // - Load a deck
   // - Save a Deck
@@ -62,7 +77,13 @@ export class AppComponent {
   //   - version
 
   public selectClass(characterClass: string): void {
-    this.selectedClass = !this.loadedClasses.get(characterClass) ? characterClass : '';
+    if (this.loadedClasses.get(characterClass)?.loaded === false) {
+      this.selectedClass = characterClass;
+      this.loadedDeck = null;
+      this.loadedClassInput!.nativeElement.value = '';
+    } else {
+      console.log('Error selecting a base class.');
+    }
   }
 
   public addPlayer(): void {
@@ -75,15 +96,26 @@ export class AppComponent {
       newDeckComponent.instance.baseDeck = this.loadedDeck?.deck ?? _.clone(BaseMonsterModifierDeck);
       newDeckComponent.instance.owner = this.selectedClass;
       newDeckComponent.instance.perks = this.loadedDeck?.perks ?? [];
-      this.loadedClasses.set(this.selectedClass, true);
+      const newDeckData: loadedDeckData = {componentRef: newDeckComponent, loaded: true};
+      this.loadedClasses.set(this.selectedClass, newDeckData);
+
       this.selectedClass = '';
+      this.loadedDeck = null;
     }
   }
 
   public async loadDeck(event: any): Promise<void> {
     console.log('loading a deck:');
     this.loadedDeck = JSON.parse(await event.target.files[0].text());
-    console.log(this.loadedDeck);
-    this.selectClass(this.loadedDeck!.class);
+    const characterClass = this.loadedDeck!.class;
+    this.selectedClass = !this.loadedClasses.get(characterClass)?.loaded ? characterClass : '';
+  }
+
+  public endOfRound(): void {
+    this.monsterDeckComponent.endOfRound();
+    this.loadedClasses.forEach((loadedClass) => {
+      loadedClass.componentRef?.instance.endOfRound()
+    });
+    this.shuffleDeckService.shuffleCardDrawnSignal.set(false);
   }
 }
