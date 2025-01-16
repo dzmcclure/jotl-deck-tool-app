@@ -1,9 +1,10 @@
 # JotlDeckToolApp
+The purpose of this app is to streamline the shuffling of attack modifier cards during gameplay. It includes the ability to bless, curse, draw two cards, choose perks, and save/load decks for future sessions. It is written in Angular 18.2.1.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+## Requirements
+[NodeJs](https://nodejs.org/en)
 
 ## Development server
-
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 To get all images run `npm run copy:assets` from the src directory
@@ -50,42 +51,10 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] descriptions
 
 ## Future Goals
-
-### Pairing/Application Structure
-- Decks
-- Cards
-- App UI
-- etc.
-
-App Component
-- Load a deck
-- Player
-  - Display decks (child component)
-  - 'level up' decks by changing cards and saving new deck
-- Monster deck sections
-  - Display decks (child component)
-  - has separate curses
-- Drawn card display (child component)
-- Other high-level app info
-  - version
-- Load/Save a session
-
-Card Component - Takes inputs from the model
-- displays a card image
-
-Card Class - Model
-- reshuffle/draw one flags
-
-Deck Component
-- image of deck (card back)
-- count of remaining cards
-- maybe some buttons
-  - draw a card
-
-
-### All decks
-- [ ] Save new deck
-  - [ ] pick file name - for windows/browser
+- [ ] Installation Instructions
 
 ### Misc/To Be Sorted
 - [ ] jotl submodule does not have base modifier decks for players
+
+
+# Installation
