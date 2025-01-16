@@ -1,16 +1,26 @@
+.player-name {
+  max-width: 375px;
+  width: 100%;
+  margin-top: 8px;
+
+  input {
+    width: 75%;
+  }
+}
+
 .deck-container {
   display: flex;
   max-width: 400px;
-  padding: 1em
+  padding: 0 1em 1em 1em
 }
 
 .card-deck-container {
   width: 75%;
-  margin: 8px;
+  margin: 4px 8px;
 }
 
 .deck-buttons-container {
-  padding: 8px 0;
+  padding: 4px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;

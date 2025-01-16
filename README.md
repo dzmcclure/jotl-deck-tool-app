@@ -36,6 +36,7 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] Load finished
 - [x] Able to save a file - guid filename
 - [x] Bug fix - Selecting a base class and loading a file are mutually exclusive
+- [x] Able to name your character! -> save filename defaults to character name
 #### Perks
 - [x] Open dialogue with perk checklist
 - [x] Perk utility function

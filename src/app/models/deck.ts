@@ -1,7 +1,8 @@
 import {Card} from './card';
 
 export interface Deck {
-  class: string;
+  name: string;
+  character: string;
   deck: Card[];
   perks: string[];
 }

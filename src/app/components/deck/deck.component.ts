@@ -11,14 +11,15 @@ import {choosePerk} from '../../service/perk.service';
 import {Deck} from '../../models/deck';
 import {PerksListComponent} from '../perks-list/perks-list.component';
 import {BaseMonsterCurseDeck, BasePlayerBlessDeck} from '../../constants/decks';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-deck',
   standalone: true,
   imports: [
     CardComponent,
-    NgOptimizedImage,
     NgClass,
+    FormsModule,
     PerksListComponent,
   ],
   templateUrl: './deck.component.html',
@@ -29,6 +30,8 @@ export class DeckComponent implements OnInit {
   @Input({required: true}) baseDeck: Card[] = [];
   @Input({required: true}) owner!: string;
   @Input() perks: string[] = [];
+  @Input() name: string = '';
+  
   cardBackImage: string = ModifierCardBack.image;
 
   deckRemainderSizeStyle = '';
@@ -42,7 +45,6 @@ export class DeckComponent implements OnInit {
 
   // form
   perksFormVisible = false;
-  @ViewChild("perksModal") perksModalRef: ElementRef | undefined;
 
   public constructor(public blurseDeckService: BlurseDecks,
                      public shuffleDeckService: ShuffleDecks) {
@@ -165,7 +167,8 @@ export class DeckComponent implements OnInit {
       this.perks = event;
 
       let tempDeck: Deck = {
-        class: this.owner,
+        name: this.name,
+        character: this.owner,
         deck: this.baseDeck,
         perks: [],
       };
@@ -181,15 +184,22 @@ export class DeckComponent implements OnInit {
   }
 
   public saveDeck(): void {
-    const playerInfo = JSON.stringify({
-      class: this.owner,
+    
+    const playerInfo: Deck = {
+      name: this.name,
+      character: this.owner,
       deck: this.baseDeck,
       perks: this.perks,
-    });
-    const playerBlob = new Blob([playerInfo], {type: 'application/octet-stream'});
-
+    };
+    const playerBlob = new Blob([JSON.stringify(playerInfo)], {type: 'application/json'});
     const url = window.URL.createObjectURL(playerBlob);
-    window.open(url);
+    const downloadLink = document.createElement('a');
+
+    downloadLink.href = url;
+    downloadLink.download = this.name + '.json';
+    downloadLink.click();
+
+    window.URL.revokeObjectURL(url);
   }
 
   public endOfRound(): void {

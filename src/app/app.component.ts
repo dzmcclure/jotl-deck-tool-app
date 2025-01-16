@@ -94,6 +94,7 @@ export class AppComponent {
       const newDeckComponent = this.viewContainer.createComponent(DeckComponent);
 
       newDeckComponent.instance.baseDeck = this.loadedDeck?.deck ?? _.clone(BaseMonsterModifierDeck);
+      newDeckComponent.instance.name = this.loadedDeck?.name ?? '';
       newDeckComponent.instance.owner = this.selectedClass;
       newDeckComponent.instance.perks = this.loadedDeck?.perks ?? [];
       const newDeckData: loadedDeckData = {componentRef: newDeckComponent, loaded: true};
@@ -107,7 +108,7 @@ export class AppComponent {
   public async loadDeck(event: any): Promise<void> {
     console.log('loading a deck:');
     this.loadedDeck = JSON.parse(await event.target.files[0].text());
-    const characterClass = this.loadedDeck!.class;
+    const characterClass = this.loadedDeck!.character;
     this.selectedClass = !this.loadedClasses.get(characterClass)?.loaded ? characterClass : '';
   }
 
