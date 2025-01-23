@@ -58,3 +58,17 @@ To get all images run `npm run copy:assets` from the src directory
 
 
 # Installation
+
+### Install Node
+1. Go to [NodeJs Download Page](https://nodejs.org/en/download) to install the latest version, select your Operating System from the dropdown and follow the instructions. 
+You may have to open a new terminal after each step
+
+### Running the app:
+1. In a terminal, navigate to the Jotl app directory
+Execute the following commands
+2. `npm install`
+3. `npm run build`
+4. `git submodule init`
+5. `git submodule update`
+6. `npm run copy:assets`
+7. `npm run start`
