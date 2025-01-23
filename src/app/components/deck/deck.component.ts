@@ -31,7 +31,7 @@ export class DeckComponent implements OnInit {
   @Input({required: true}) owner!: string;
   @Input() perks: string[] = [];
   @Input() name: string = '';
-  
+
   cardBackImage: string = ModifierCardBack.image;
 
   deckRemainderSizeStyle = '';
@@ -184,7 +184,7 @@ export class DeckComponent implements OnInit {
   }
 
   public saveDeck(): void {
-    
+
     const playerInfo: Deck = {
       name: this.name,
       character: this.owner,
@@ -196,7 +196,7 @@ export class DeckComponent implements OnInit {
     const downloadLink = document.createElement('a');
 
     downloadLink.href = url;
-    downloadLink.download = this.name + '.json';
+    downloadLink.download = this.name.replace(/\W/g, '') + '.json';
     downloadLink.click();
 
     window.URL.revokeObjectURL(url);
