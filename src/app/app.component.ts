@@ -34,9 +34,9 @@ interface loadedDeckData {
 })
 
 export class AppComponent {
+  @ViewChild('deckComponent', {read: ViewContainerRef}) deckComponent!: ViewContainerRef;
   @ViewChild('loadedClass') loadedClassInput!: ElementRef;
   @ViewChild('monsterDeckComponent') monsterDeckComponent!: DeckComponent;
-
   title: string = 'jotl-deck-app';
   version: string = 'v0.2';
 
@@ -91,7 +91,7 @@ export class AppComponent {
       console.log('adding a player');
       this.addPlayerDialogVisible = true;
       this.playerCount++;
-      const newDeckComponent = this.viewContainer.createComponent(DeckComponent);
+      const newDeckComponent = this.deckComponent.createComponent(DeckComponent);
 
       newDeckComponent.instance.baseDeck = this.loadedDeck?.deck ?? _.clone(BaseMonsterModifierDeck);
       newDeckComponent.instance.name = this.loadedDeck?.name ?? '';
