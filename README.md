@@ -11,6 +11,7 @@ To get all images run `npm run copy:assets` from the src directory
 
 ## Completed Milestones
 - [x] End of round button - Shuffle all decks that drew shuffle cards during the round
+- [x] Installation Instructions
 
 #### Monster Deck
 - [x] Card details
@@ -51,7 +52,8 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] descriptions
 
 ## Future Goals
-- [ ] Installation Instructions
+- [ ] Responsive Design
+- [ ] Prettier background/fonts/art/stuff
 
 ### Misc/To Be Sorted
 - [ ] jotl submodule does not have base modifier decks for players
@@ -64,11 +66,11 @@ To get all images run `npm run copy:assets` from the src directory
 You may have to open a new terminal after each step
 
 ### Running the app:
-1. In a terminal, navigate to the Jotl app directory
+1. In a terminal (for Windows use powershell), navigate to the Jotl app directory
 Execute the following commands
-2. `npm install`
-3. `npm run build`
-4. `git submodule init`
-5. `git submodule update`
-6. `npm run copy:assets`
+2. `git submodule init`
+3. `git submodule update`
+4. `npm install` - There may be warnings, but there should be no errors
+5. `npm run build`
+6. `npm run copy:assets` - This copies the images for cards (app is usable without them), if there is an error something went wrong in step 2 or 3, or you are not in powershell
 7. `npm run start`

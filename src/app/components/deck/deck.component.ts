@@ -106,6 +106,7 @@ export class DeckComponent implements OnInit {
   }
 
   public returnDiscardsToDeck(): void {
+    this.drawnCards = [];
     this.discardPile.forEach((card: Card) => {
       this.drawPile.push(card);
     });
@@ -196,7 +197,8 @@ export class DeckComponent implements OnInit {
     const downloadLink = document.createElement('a');
 
     downloadLink.href = url;
-    downloadLink.download = this.name.replace(/\W/g, '') + '.json';
+    const fileName = this.name.replace(/\W/g, '');
+    downloadLink.download = fileName ? `${fileName}.json` : `${this.owner}.json`;
     downloadLink.click();
 
     window.URL.revokeObjectURL(url);
