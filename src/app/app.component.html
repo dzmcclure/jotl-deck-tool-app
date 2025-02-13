@@ -10,7 +10,7 @@
       <app-deck #monsterDeckComponent owner="monster" [baseDeck]="monsterDeck"></app-deck>
     </div>
   
-    <div>
+    <div style="display: grid; justify-content: center;">
       @if (playerCount < 4) {
         <div class="add-deck-container">
           @if (!addPlayerDialogVisible) {

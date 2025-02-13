@@ -1,12 +1,21 @@
 :host {
-  --card-default-width: 225px;
-  --card-default-height: 150px;
+  @media only screen and (max-width: 575px) {
+    --card-width: var(--card-default-width-sm);
+    --card-height: var(--card-default-height-sm);
+    --button-width: 50px;
+  }
+  
+  @media only screen and (min-width: 576px) {
+    --card-width: var(--card-default-width-md);
+    --card-height: var(--card-default-height-md);
+    --button-width: 75px;
+  }
+  
   margin: 6px;
   padding: 2px;
-  min-width: calc(2em + 2 * var(--card-default-width));
-  /* min-height: 464px; */
   border: 2px #000000 solid;
   border-radius: 5px;
+  min-width: calc(2em + 2 * var(--card-width));
 }
 
 .player-name {
@@ -35,12 +44,23 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  .img-button {
+    width: var(--button-width);
+    height: var(--button-width);
+  }
+
+  @media only screen and (max-width: 575px) {
+    button {
+      font-size: xx-small;
+    }
+  }
 }
 
 .card-deck {
   --deck-card-color: #352417;
-  height: 150px;
-  width: auto;
+  width: var(--card-width);
+  height: var(--card-height);
   border-radius: 5px;
   position: relative;
 }
@@ -58,15 +78,18 @@
 }
 
 .button-icon {
-  height: 75px;
-  width: 75px;
+  width: var(--button-width);
+  height: var(--button-width);
   border: none;
-  margin-left: 16px;
   background: none;
 
+  @media only screen and (min-width: 576px) {
+    margin-left: 16px;
+  }
+
   img {
-    height: 100%;
     width: 100%;
+    height: 100%;
     border-radius: 50%;
   }
 
@@ -106,11 +129,11 @@
 
 .drawn-card-container {
   display: flex;
-  min-height: calc(1em + var(--card-default-height));
+  min-height: calc(1em + var(--card-height));
 
   .drawn-card {
-    width: var(--card-default-width);
-    height: var(--card-default-height);
+    width: var(--card-width);
+    height: var(--card-height);
     padding: .5em;
   }
 }
@@ -130,20 +153,28 @@
   .discard-modal-info {
     z-index: 2;
     position: absolute;
-    left: 25%;
     top: 25%;
     min-height: 100px;
     max-height: 75%;
-    width: 50%;
     background: white;
     border-radius: 4px;
+
+    @media only screen and (min-width: 576px) {
+      width: 50%;
+      left: 25%;
+    }
+
+    @media only screen and (max-width: 575px) {
+      width: 90%;
+      left: 5%;
+    }
 
     .modal-close-button {
       position: absolute;
       right: .5em;
       top: .5em;
-      height: 1.5em;
       width: 1.5em;
+      height: 1.5em;
       justify-content: center;
       display: flex;
     }
@@ -156,8 +187,8 @@
     margin: 1em;
 
     .discard-card {
-      height: 50px;
       width: 75px;
+      height: 50px;
       padding: .5em;
 
       .last-card-drawn-label {

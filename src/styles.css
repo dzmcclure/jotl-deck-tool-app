@@ -21,3 +21,16 @@ button {
     border-radius: 2px;
   }
 }
+
+:root {
+  --card-default-width-sm: 150px;
+  --card-default-width-md: 225px;
+  --card-default-height-sm: 100px;
+  --card-default-height-md: 150px;
+}
+/* media breakpoints for reference
+  --screen-width-sm: 576px;
+  --screen-width-md: 768px;
+  --screen-width-lg: 992px;
+  --screen-width-xl: 1200px;
+*/
