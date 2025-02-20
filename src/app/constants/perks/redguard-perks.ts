@@ -2,22 +2,22 @@ import {CardChanges} from "../../models/perk";
 
 export const RedguardPerks: Record<string, CardChanges> = {
   'rg-01': {
-    desc: 'remove 4 +0',
+    desc: 'Remove four +0',
     addCards: [],
     removeCards: ['jl-am-m-01', 'jl-am-m-02', 'jl-am-m-03', 'jl-am-m-04'],
   },
   'rg-02': {
-    desc: 'remove 2 -1',
+    desc: 'Remove two -1',
     addCards: [],
     removeCards: ['jl-am-m-12', 'jl-am-m-13'],
   },
   'rg-03': {
-    desc: 'remove -2 +1',
+    desc: 'Remove -2 +1',
     addCards: [],
     removeCards: ['jl-am-m-17', 'jl-am-m-07'],
   },
   'rg-04': {
-    desc: 'replace -1 with +1',
+    desc: 'Replace -1 with +1',
     addCards: [{
       id: "jl-am-rg-01",
       description: "+1",
@@ -26,7 +26,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-14'],
   },
   'rg-05': {
-    desc: 'replace -1 with +1',
+    desc: 'Replace -1 with +1',
     addCards: [{
       id: "jl-am-rg-02",
       description: "+1",
@@ -35,7 +35,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-15'],
   },
   'rg-06': {
-    desc: 'replace -1 with +2 Fire',
+    desc: 'Replace -1 with +2 Fire',
     addCards: [{
       id: "jl-am-rg-03",
       description: "+2 - Infuse Fire",
@@ -44,7 +44,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-08'],
   },
   'rg-07': {
-    desc: 'replace -1 with +2 Fire',
+    desc: 'Replace -1 with +2 Fire',
     addCards: [{
       id: "jl-am-rg-04",
       description: "+2 - Infuse Fire",
@@ -53,7 +53,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-09'],
   },
   'rg-08': {
-    desc: 'replace -1 with +2 Light',
+    desc: 'Replace -1 with +2 Light',
     addCards: [{
       id: "jl-am-rg-05",
       description: "+2 - Infuse Light",
@@ -62,7 +62,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-10'],
   },
   'rg-09': {
-    desc: 'replace -1 with +2 Light',
+    desc: 'Replace -1 with +2 Light',
     addCards: [{
       id: "jl-am-rg-06",
       description: "+2 - Infuse Light",
@@ -71,7 +71,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-11'],
   },
   'rg-10': {
-    desc: 'add +1 Fire Light',
+    desc: 'Add +1 Fire Light',
     addCards: [{
       id: "jl-am-rg-07",
       description: "+1 - Infuse Fire - Infuse Light",
@@ -80,7 +80,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'rg-11': {
-    desc: 'add +1 Fire Light',
+    desc: 'Add +1 Fire Light',
     addCards: [{
       id: "jl-am-rg-08",
       description: "+1 - Infuse Fire - Infuse Light",
@@ -89,7 +89,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'rg-12': {
-    desc: 'add +1 Shield 1',
+    desc: 'Add +1 Shield 1',
     addCards: [{
       id: "jl-am-rg-09",
       description: "+1 - Shield 1",
@@ -98,7 +98,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'rg-13': {
-    desc: 'add +1 Shield 1',
+    desc: 'Add +1 Shield 1',
     addCards: [{
       id: "jl-am-rg-10",
       description: "+1 - Shield 1",
@@ -107,7 +107,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'rg-14': {
-    desc: 'replace +0 with +1 Immobilize',
+    desc: 'Replace +0 with +1 Immobilize',
     addCards: [{
       id: "jl-am-rg-11",
       description: "+1 - Inflict Immobilize",
@@ -116,7 +116,7 @@ export const RedguardPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-05'],
   },
   'rg-15': {
-    desc: 'replace +0 with +1 Wound',
+    desc: 'Replace +0 with +1 Wound',
     addCards: [{
       id: "jl-am-rg-12",
       description: "+1 - Inflict Wound",

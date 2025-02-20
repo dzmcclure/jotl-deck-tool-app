@@ -2,17 +2,17 @@ import {CardChanges} from "../../models/perk";
 
 export const HatchetPerks: Record<string, CardChanges> = {
   'ha-01': {
-    desc: 'remove 2 -1',
+    desc: 'Remove two -1',
     addCards: [],
     removeCards: ['jl-am-m-12', 'jl-am-m-13'],
   },
   'ha-02': {
-    desc: 'remove 2 -1',
+    desc: 'Remove two -1',
     addCards: [],
     removeCards: ['jl-am-m-14', 'jl-am-m-15'],
   },
   'ha-03': {
-    desc: 'replace +0 with +2 Muddle',
+    desc: 'Replace +0 with +2 Muddle',
     addCards: [{
       id: "jl-am-ha-01",
       description: "+2 - Inflict Muddle",
@@ -21,7 +21,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-01'],
   },
   'ha-04': {
-    desc: 'replace +0 with +1 Poison',
+    desc: 'Replace +0 with +1 Poison',
     addCards: [{
       id: "jl-am-ha-02",
       description: "+1 - Inflict Poison",
@@ -30,7 +30,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-02'],
   },
   'ha-05': {
-    desc: 'replace +0 with +1 Wound',
+    desc: 'Replace +0 with +1 Wound',
     addCards: [{
       id: "jl-am-ha-03",
       description: "+1 - Inflict Wound",
@@ -39,7 +39,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-03'],
   },
   'ha-06': {
-    desc: 'replace +0 with +1 Immobilize',
+    desc: 'Replace +0 with +1 Immobilize',
     addCards: [{
       id: "jl-am-ha-04",
       description: "+1 - Inflict Immobilize",
@@ -48,7 +48,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-04'],
   },
   'ha-07': {
-    desc: 'replace +0 with +1 Push 2',
+    desc: 'Replace +0 with +1 Push 2',
     addCards: [{
       id: "jl-am-ha-05",
       description: "+1 - Push 2",
@@ -57,7 +57,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-05'],
   },
   'ha-08': {
-    desc: 'replace +0 with +0 Stun',
+    desc: 'Replace +0 with +0 Stun',
     addCards: [{
       id: "jl-am-ha-06",
       description: "+0 - Inflict Stun",
@@ -66,7 +66,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-06'],
   },
   'ha-09': {
-    desc: 'replace +1 with +1 Stun',
+    desc: 'Replace +1 with +1 Stun',
     addCards: [{
       id: "jl-am-ha-07",
       description: "+1 - Inflict Stun",
@@ -75,7 +75,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-07'],
   },
   'ha-10': {
-    desc: 'add +2 Air',
+    desc: 'Add +2 Air',
     addCards: [{
       id: "jl-am-ha-08",
       description: "+2 - Infuse Air",
@@ -84,7 +84,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'ha-11': {
-    desc: 'add +2 Air',
+    desc: 'Add +2 Air',
     addCards: [{
       id: "jl-am-ha-09",
       description: "+2 - Infuse Air",
@@ -93,7 +93,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'ha-12': {
-    desc: 'add +2 Air',
+    desc: 'Add +2 Air',
     addCards: [{
       id: "jl-am-ha-10",
       description: "+2 - Infuse Air",
@@ -102,7 +102,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: [],
   },
   'ha-13': {
-    desc: 'replace +1 with +3',
+    desc: 'Replace +1 with +3',
     addCards: [{
       id: "jl-am-ha-11",
       description: "+3",
@@ -111,7 +111,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-08'],
   },
   'ha-14': {
-    desc: 'replace +1 with +3',
+    desc: 'Replace +1 with +3',
     addCards: [{
       id: "jl-am-ha-12",
       description: "+3",
@@ -120,7 +120,7 @@ export const HatchetPerks: Record<string, CardChanges> = {
     removeCards: ['jl-am-m-09'],
   },
   'ha-15': {
-    desc: 'replace +1 with +3',
+    desc: 'Replace +1 with +3',
     addCards: [{
       id: "jl-am-ha-13",
       description: "+3",
