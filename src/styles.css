@@ -13,8 +13,13 @@ app-root {
   width: 100%;
 }
 
+input {
+  font-family: 'High Tower';
+}
+
 button {
   margin: 4px;
+  font-family: 'High Tower';
 
   &.highlight {
     border-color: red;
@@ -27,6 +32,8 @@ button {
   --card-default-width-md: 225px;
   --card-default-height-sm: 100px;
   --card-default-height-md: 150px;
+
+  font-family: 'Pirata One', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 /* media breakpoints for reference
   --screen-width-sm: 576px;
@@ -34,3 +41,21 @@ button {
   --screen-width-lg: 992px;
   --screen-width-xl: 1200px;
 */
+
+.numeric {
+  font-family: 'Pirata One', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.perk-label-numbers {
+  font-family: 'Pirata One', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 13pt;
+}
+
+@font-face {
+  font-family: 'Pirata One';
+  src: url('/assets/fonts/PirataOne-Gloomhaven.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'High Tower';
+  src: url('/assets/fonts/HTOWERT.TTF') format('truetype');
+}

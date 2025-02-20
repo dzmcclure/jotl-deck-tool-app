@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} fro
 import _ from 'lodash';
 import {CardChanges} from "../../models/perk";
 import * as perkList from "../../constants/perks";
+import { PerkNumbers } from '../../pipes/perk-pipe';
 
 interface PerkChecklist extends CardChanges {
   perkId: string;
@@ -12,8 +13,10 @@ interface PerkChecklist extends CardChanges {
   selector: 'app-perks-list',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PerkNumbers
   ],
+  providers: [ PerkNumbers ],
   templateUrl: './perks-list.component.html',
   styleUrl: './perks-list.component.css'
 })

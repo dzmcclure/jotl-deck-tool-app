@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Majalla';
+  src: url('../../../assets/fonts/MAJALLA.TTF') format('truetype');
+}
+
+.perk-label {
+  font-family: 'Majalla';
+  font-size: 15pt;
+}

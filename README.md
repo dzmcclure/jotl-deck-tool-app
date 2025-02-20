@@ -12,6 +12,7 @@ To get all images run `npm run copy:assets` from the src directory
 ## Completed Milestones
 - [x] End of round button - Shuffle all decks that drew shuffle cards during the round
 - [x] Installation Instructions
+- [x] Added fonts!
 
 #### Monster Deck
 - [x] Card details
@@ -31,6 +32,7 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] Remove ALL Bless/Curse cards
 - [x] Restore Bless and Curse decks to base
 - [x] Move blurse cards out of deck and into store
+
 #### Player Decks
 - [x] Add icons for player symbols
 - [x] Add player section/button
@@ -39,6 +41,7 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] Able to save a file - guid filename
 - [x] Bug fix - Selecting a base class and loading a file are mutually exclusive
 - [x] Able to name your character! -> save filename defaults to character name
+
 #### Perks
 - [x] Open dialogue with perk checklist
 - [x] Perk utility function
@@ -53,7 +56,7 @@ To get all images run `npm run copy:assets` from the src directory
 
 ## Future Goals
 - [ ] Responsive Design
-- [ ] Prettier background/fonts/art/stuff
+- [ ] Prettier background/art/stuff
 
 ### Misc/To Be Sorted
 - [ ] jotl submodule does not have base modifier decks for players

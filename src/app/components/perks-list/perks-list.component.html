@@ -1,12 +1,12 @@
 <form [formGroup]="form">
   @for(control of perkFormArray.controls; track $index) {
-    <label formArrayName="perks">
-      <input type="checkbox" [formControlName]="$index">
+    <span formArrayName="perks">
+      <input id="perk{{$index}}" type="checkbox" [formControlName]="$index">
       @if($index === availablePerks.length - 1 || availablePerks[$index].desc !== availablePerks[$index+1].desc) {
-        {{availablePerks[$index].desc}}
+        <label class="perk-label" for="perk{{$index}}" [innerHTML]="availablePerks[$index].desc | perkNumbers"></label>
         <br>
       }
-    </label>
+    </span>
   }
 </form>
 <button (click)="submit()">Submit</button>
