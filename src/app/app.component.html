@@ -1,15 +1,17 @@
-<strong style="font-size: 20pt;">{{title}}</strong>
+<div class="title-header">
+  <img  src="../assets/title-header.jpg" width=576px height=auto>
+</div>
 <br>
 <div class="app-wrapper">
   <div class="end-round-button-container">
     <button class="end-round-button" [disabled]="!shuffleCardDrawnGlobally" (click)="endOfRound()" >End Round</button>
   </div>
-  
+
   <div class="base-container">
     <div class="deck-container">
       <app-deck #monsterDeckComponent owner="monster" [baseDeck]="monsterDeck"></app-deck>
     </div>
-  
+
     <div style="display: grid; justify-content: center;">
       @if (playerCount < 4) {
         <div class="add-deck-container">

@@ -12,7 +12,9 @@ To get all images run `npm run copy:assets` from the src directory
 ## Completed Milestones
 - [x] End of round button - Shuffle all decks that drew shuffle cards during the round
 - [x] Installation Instructions
+- [x] Responsive Design
 - [x] Added fonts!
+- [x] Prettier background/art/stuff
 
 #### Monster Deck
 - [x] Card details
@@ -55,12 +57,8 @@ To get all images run `npm run copy:assets` from the src directory
 - [x] descriptions
 
 ## Future Goals
-- [ ] Responsive Design
-- [ ] Prettier background/art/stuff
-
-### Misc/To Be Sorted
 - [ ] jotl submodule does not have base modifier decks for players
-
+- [ ] art tweaks - e.g. perks, elements
 
 # Installation
 
@@ -77,3 +75,10 @@ Execute the following commands
 5. `npm run build`
 6. `npm run copy:assets` - This copies the images for cards (app is usable without them), if there is an error something went wrong in step 2 or 3, or you are not in powershell
 7. `npm run start`
+
+## License
+TODO: Decide on a license FOR THE REST OF THE APP
+
+This project uses Gloomhaven assets provided by Isaac Childres under the creative commons license BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+All assets thus used in this application, whether unmodified or modified, also fall under this license.

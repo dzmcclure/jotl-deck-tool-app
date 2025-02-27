@@ -4,6 +4,12 @@
   justify-content: center;
 }
 
+.title-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .end-round-button-container{
   display: flex;
   justify-content: center;
@@ -18,7 +24,7 @@
 .base-container {
   display: flex;
   justify-content: center;
-  
+
   @media only screen and (max-width: 991px) {
     flex-direction: column;
   }
@@ -40,7 +46,7 @@
   height: 150px;
   border: 2px #000000 solid;
   border-radius: 5px;
-  
+
   @media only screen and (min-width: 992px) {
     position:absolute;
   }

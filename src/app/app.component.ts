@@ -37,8 +37,8 @@ export class AppComponent {
   @ViewChild('deckComponent', {read: ViewContainerRef}) deckComponent!: ViewContainerRef;
   @ViewChild('loadedClass') loadedClassInput!: ElementRef;
   @ViewChild('monsterDeckComponent') monsterDeckComponent!: DeckComponent;
-  title: string = 'jotl-deck-app';
-  version: string = 'v0.2';
+  title: string = 'Jaws Of The Lion - Deck Helper';
+  version: string = 'v1.0.0-beta1';
 
   addPlayerDialogVisible = false;
   shuffleCardDrawnGlobally = false;
