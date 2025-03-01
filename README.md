@@ -73,7 +73,7 @@ Execute the following commands
 3. `git submodule update`
 4. `npm install` - There may be warnings, but there should be no errors
 5. `npm run build`
-6. `npm run copy:assets` - This copies the images for cards (app is usable without them), if there is an error something went wrong in step 2 or 3, or you are not in powershell
+6. `npm run copy:assets:l` (for linux) or `npm run copy:assets:w` (for windows) - This copies the images for cards (app is usable without them), if there is an error something went wrong in step 2 or 3
 7. `npm run start`
 
 ## License

@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "copy:assets": "cp -R jotl/images src/assets"
+    "copy:assets:l": "cp -R jotl/images src/assets",
+    "copy:assets:w": "xcopy /S jotl\\images src\\assets\\images"
   },
   "private": true,
   "dependencies": {
