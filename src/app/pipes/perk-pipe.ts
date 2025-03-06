@@ -11,8 +11,7 @@ export class PerkNumbers implements PipeTransform{
   
   transform(value: string): SafeHtml {
     const newString = value.replace(/([\+\-\d]+)/g, '<span class="perk-label-numbers">$1</span>');
-
-    console.log(newString);
+    
     return this.sanitizer.bypassSecurityTrustHtml(newString);
   }
 }

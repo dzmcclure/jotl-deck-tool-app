@@ -8,7 +8,6 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {RouterOutlet} from '@angular/router';
 import {DeckComponent} from './components/deck/deck.component';
 import {BaseMonsterModifierDeck} from './constants/decks';
 import _ from 'lodash';
@@ -26,7 +25,6 @@ interface loadedDeckData {
   imports: [
     CommonModule,
     FormsModule,
-    RouterOutlet,
     DeckComponent,
   ],
   templateUrl: './app.component.html',
@@ -56,25 +54,10 @@ export class AppComponent {
 
   constructor(private viewContainer: ViewContainerRef,
               public shuffleDeckService: ShuffleDecks) {
-    // Intentionally left blank
     effect(() => {
-      console.log(`The status is: ${shuffleDeckService.shuffleCardDrawnSignal()}`);
       this.shuffleCardDrawnGlobally = shuffleDeckService.shuffleCardDrawnSignal();
     });
   }
-  // - Load a deck
-  // - Save a Deck
-  // - Player
-  //   - Display decks (child component)
-  //   - 'level up' decks by changing cards and saving new deck
-  // ✓ Monster deck section
-  //   ✓ Display deck (child component)
-  //   ✓ has separate curses
-  // - End round (trigger all shuffles if needed)
-  // - End of encounter 'reset' - (reset store, trigger all deck resets/loads)
-  // - Drawn card display (child component)
-  // - Other high-level app info
-  //   - version
 
   public selectClass(characterClass: string): void {
     if (this.loadedClasses.get(characterClass)?.loaded === false) {
@@ -88,7 +71,6 @@ export class AppComponent {
 
   public addPlayer(): void {
     if (this.selectedClass !== '') {
-      console.log('adding a player');
       this.addPlayerDialogVisible = true;
       this.playerCount++;
       const newDeckComponent = this.deckComponent.createComponent(DeckComponent);
@@ -106,7 +88,6 @@ export class AppComponent {
   }
 
   public async loadDeck(event: any): Promise<void> {
-    console.log('loading a deck:');
     this.loadedDeck = JSON.parse(await event.target.files[0].text());
     const characterClass = this.loadedDeck!.character;
     this.selectedClass = !this.loadedClasses.get(characterClass)?.loaded ? characterClass : '';

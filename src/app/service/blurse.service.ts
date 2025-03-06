@@ -9,44 +9,44 @@ import {Injectable, signal, WritableSignal} from "@angular/core";
 
 export class BlurseDecks {
   // Decks
-  private blessDeckSignal: Card[] = _.clone(BasePlayerBlessDeck);
-  private monsterCurseDeckSignal: WritableSignal<Card[]> = signal(_.clone(BaseMonsterCurseDeck));
-  private playerCurseDeckSignal: WritableSignal<Card[]> = signal(_.clone(BaseMonsterCurseDeck));
+  private blessDeck: Card[] = _.clone(BasePlayerBlessDeck);
+  private monsterCurseDeck: Card[] = _.clone(BaseMonsterCurseDeck);
+  private playerCurseDeck: Card[] = _.clone(BaseMonsterCurseDeck);
 
   public getBlessDeck(): Card[] {
-    return this.blessDeckSignal;
+    return this.blessDeck;
   }
 
   public drawBless(): Card | undefined {
-    return this.blessDeckSignal.pop();
+    return this.blessDeck.pop();
   }
 
   public returnBless(bless: Card): void {
-    this.blessDeckSignal.push(bless);
+    this.blessDeck.push(bless);
   }
 
   public getCurseDeck(owner: string): Card[] {
     if (owner === 'monster')
-      return this.monsterCurseDeckSignal();
-    return this.playerCurseDeckSignal();
+      return this.monsterCurseDeck;
+    return this.playerCurseDeck;
   }
 
   public drawCurse(owner: string): Card | undefined {
     if (owner === 'monster')
-      return this.monsterCurseDeckSignal().pop()
-    return this.playerCurseDeckSignal().pop()
+      return this.monsterCurseDeck.pop()
+    return this.playerCurseDeck.pop()
   }
 
   public returnCurse(owner: string, curse: Card): void {
     if (owner === 'monster')
-      this.monsterCurseDeckSignal().push(curse);
+      this.monsterCurseDeck.push(curse);
     else
-      this.playerCurseDeckSignal().push(curse);
+      this.playerCurseDeck.push(curse);
   }
 
   public resetDecks(): void {
-    this.blessDeckSignal = _.clone(BasePlayerBlessDeck);
-    this.monsterCurseDeckSignal.set(_.clone(BaseMonsterCurseDeck));
-    this.playerCurseDeckSignal.set(_.clone(BaseMonsterCurseDeck));
+    this.blessDeck = _.clone(BasePlayerBlessDeck);
+    this.monsterCurseDeck = _.clone(BaseMonsterCurseDeck);
+    this.playerCurseDeck = _.clone(BaseMonsterCurseDeck);
   }
 }

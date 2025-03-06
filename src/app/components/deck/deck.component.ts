@@ -3,14 +3,14 @@ import {ModifierCardBack} from '../../constants/cards/modifier-card-back';
 import {CardComponent} from '../card/card.component';
 import {Card} from '../../models/card';
 import _ from 'lodash';
-import {NgClass, NgOptimizedImage} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {BlurseDecks} from '../../service/blurse.service';
 import {ShuffleDecks} from '../../service/shuffle.service';
 import {monsterIcon, playerIcons} from '../../constants/variables';
 import {choosePerk} from '../../service/perk.service';
 import {Deck} from '../../models/deck';
 import {PerksListComponent} from '../perks-list/perks-list.component';
-import {BaseMonsterCurseDeck, BasePlayerBlessDeck} from '../../constants/decks';
+import {BaseMonsterCurseDeck as BaseCurseDeck, BasePlayerBlessDeck as BaseBlessDeck} from '../../constants/decks';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -61,31 +61,23 @@ export class DeckComponent implements OnInit {
   public addBlessToModifierDeck(): void {
     const blessCard = this.blurseDeckService.drawBless();
     if (blessCard) {
-      this.drawPile.push(blessCard);
-    } else {
-      console.log('No bless cards left to add!');
+      this.drawPile.push(blessCard); 
+      this.calculateDeckShadow();
+      this.shuffle();
     }
-
-    this.calculateDeckShadow();
-    this.shuffle();
   }
 
   public addCurseToModifierDeck(): void {
     const curseCard = this.blurseDeckService.drawCurse(this.owner);
     if (curseCard) {
       this.drawPile.push(curseCard);
-    } else {
-      console.log('No curse cards left to add!');
+      this.calculateDeckShadow();
+      this.shuffle();
     }
-
-    this.calculateDeckShadow();
-    this.shuffle();
   }
 
-  public spendBless(card?: Card): void {
-    if (card) {
-      this.blurseDeckService.returnBless(card);
-    }
+  public spendBless(card: Card): void {
+    this.blurseDeckService.returnBless(card);
   }
 
   public spendCurse(card: Card): void {
@@ -95,9 +87,9 @@ export class DeckComponent implements OnInit {
   public resetDeck(): void {
     this.drawnCards = [];
     this.drawPile.forEach((card) => {
-      if (_.includes(BasePlayerBlessDeck, card)) {
+      if (_.includes(BaseBlessDeck, card)) {
         this.spendBless(card);
-      } else if (_.includes(BaseMonsterCurseDeck, card)) {
+      } else if (_.includes(BaseCurseDeck, card)) {
         this.spendCurse(card);
       }
     });
@@ -115,10 +107,16 @@ export class DeckComponent implements OnInit {
 
   public shuffleDrawPile(): void {
     this.discardPile = [];
-
     this.calculateDeckShadow();
     this.shuffle();
     this.shuffleCardDrawn = false;
+  }
+
+  public endOfRound(): void {
+    console.log(`**End of round called for ${this.owner}**`);
+    if (this.shuffleCardDrawn) {
+      this.returnDiscardsToDeck();
+    }
   }
 
   public drawCard(numberDrawn: number = 1): void {
@@ -128,11 +126,9 @@ export class DeckComponent implements OnInit {
         const drawnCard: Card | undefined = this.drawPile.pop();
         if (drawnCard) {
           this.drawnCards.push(drawnCard);
-          if (_.includes(BasePlayerBlessDeck, drawnCard)) {
-            console.log('Bless Card Drawn!')
+          if (_.includes(BaseBlessDeck, drawnCard)) {
             this.spendBless(drawnCard);
-          } else if (_.includes(BaseMonsterCurseDeck, drawnCard)) {
-            console.log('Curse Card Drawn!')
+          } else if (_.includes(BaseCurseDeck, drawnCard)) {
             this.spendCurse(drawnCard);
           } else {
             this.discardPile.push(drawnCard);
@@ -143,8 +139,6 @@ export class DeckComponent implements OnInit {
             this.shuffleDeckService.shuffleCardDrawnSignal.set(this.shuffleCardDrawn);
           }
         }
-      } else {
-        console.log('No cards left to draw!!!');
       }
     }
 
@@ -185,7 +179,6 @@ export class DeckComponent implements OnInit {
   }
 
   public saveDeck(): void {
-
     const playerInfo: Deck = {
       name: this.name,
       character: this.owner,
@@ -202,13 +195,6 @@ export class DeckComponent implements OnInit {
     downloadLink.click();
 
     window.URL.revokeObjectURL(url);
-  }
-
-  public endOfRound(): void {
-    console.log(`**End of round called for ${this.owner}**`);
-    if (this.shuffleCardDrawn) {
-      this.returnDiscardsToDeck();
-    }
   }
 
   private calculateDeckShadow(): void {
